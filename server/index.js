@@ -9,6 +9,7 @@ import userRouter from "./router/userRouter.js"
 import productRouter from "./router/productRouter.js"
 import cartRouter from "./router/cartRouter.js"
 import orderRouter from "./router/orderRouter.js"
+import couponRouter from "./router/couponRouter.js"
 
 
 const app = express()
@@ -43,6 +44,9 @@ app.use("/api/cart" , cartRouter)
 
 
 app.use("/api/order" , orderRouter)
+
+
+app.use("/api/coupon" , couponRouter)
 
 
 
