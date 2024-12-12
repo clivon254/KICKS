@@ -143,3 +143,15 @@ export const deleteProduct = async (req,res,next) => {
         next(error)
     }
 }
+
+
+export const stats = async (req,res,next) => {
+
+    try
+    {}
+    catch(error)
+    {
+        next(error)
+    }
+
+}

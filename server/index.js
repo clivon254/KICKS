@@ -11,6 +11,7 @@ import cartRouter from "./router/cartRouter.js"
 import orderRouter from "./router/orderRouter.js"
 import couponRouter from "./router/couponRouter.js"
 import reveiwRouter from "./router/reveiwRouter.js"
+import subscribeRouter from "./router/subscribeRouter.js"
 
 
 const app = express()
@@ -52,6 +53,8 @@ app.use("/api/coupon" , couponRouter)
 
 app.use("/api/reveiw" , reveiwRouter)
 
+
+app.use("/api/subscribe" , subscribeRouter)
 
 
 
