@@ -47,3 +47,13 @@
     @apply h-7 w-7  border border-r-white border-t-white border-black 
     rounded-full  animate-spin
 }
+
+.link
+{
+    @apply flex items-center gap-x-3 
+}
+
+.active-link
+{
+    @apply flex items-center gap-x-3 bg-blue-800 p-2 rounded-md text-white
+}

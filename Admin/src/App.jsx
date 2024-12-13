@@ -10,6 +10,13 @@ import ResetPassword from './pages/ResetPassword'
 import { useSelector } from 'react-redux'
 import { StoreContext } from './context/store'
 import Header from './components/Header'
+import SideBar from './components/SideBar'
+import AddProduct from './pages/AddProduct'
+import Products from './pages/Products'
+import Orders from './pages/Orders'
+import AddCoupon from './pages/AddCoupon'
+import Profile from './pages/Profile'
+import Subscribers from './pages/Subscribers'
 
 function App() {
  
@@ -23,17 +30,28 @@ function App() {
 
       currentUser && currentUser?.isAdmin ?
 
-        <div className="w-full min-h-screen">
+        <div className="w-full h-screen flex flex-col ">
 
-          <div className="">
+          <div className="sticky top-0">
 
             <Header/>
 
           </div>
 
-          <div className="">
+          <div className="flex-1 overflow-auto flex ">
 
-            <Outlet/>
+            {/* sidebar */}
+            <div className="hidden lg:block w-full lg:w-1/4 h-full border-r ">
+
+              <SideBar/>
+
+            </div>
+
+            <div className="w-full md:w-3/4">
+
+              <Outlet/>
+
+            </div>
 
           </div>
 
@@ -58,6 +76,20 @@ function App() {
           <Route element={<Layout/>}>
 
             <Route path="/" element={<Dashboard/>}/>
+
+            <Route path="/add-product" element={<AddProduct/>}/>
+
+            <Route path="/products" element={<Products/>}/>
+
+            <Route path="/orders" element={<Orders/>}/>
+
+            <Route path="/add-coupon" element={<AddCoupon/>}/>
+
+            <Route path="/coupons" element={<AddCoupon/>}/>
+
+            <Route path="/profile" element={<Profile/>}/>
+
+            <Route path="/subscribe" element={<Subscribers/>}/>
 
           </Route>
 
