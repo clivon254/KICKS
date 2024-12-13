@@ -19,7 +19,7 @@ authRouter.post('/google', google)
 authRouter.post('/forgot-password', forgotPassword)
 
 
-authRouter.post('/rest-password/:token', resetPassword)
+authRouter.post('/reset-password/:token', resetPassword)
 
 
 

@@ -2,3 +2,48 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+
+.section
+{
+    @apply w-full p-5
+}
+
+/* components */
+.input
+{
+    @apply border border-gray-500 px-2 py-3 outline-blue-600 rounded
+}
+
+.label
+{
+    @apply text-base font-semibold
+}
+
+.btn
+{
+    @apply bg-blue-800 py-3 px-2 text-white text-base disabled:opacity-50
+}
+
+/* utilites */
+.title
+{
+    @apply text-5xl lg:text-6xl 2xl:text-7xl font-semibold
+}
+
+.title2
+{
+    @apply text-3xl lg:text-4xl 2xl:text-5xl font-semibold
+}
+
+.title3
+{
+    @apply text-2xl lg:text-3xl 2xl:text-4xl font-semibold
+}
+
+.loading
+{
+    @apply h-7 w-7  border border-r-white border-t-white border-black 
+    rounded-full  animate-spin
+}

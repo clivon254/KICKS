@@ -21,14 +21,14 @@ function App() {
 
     return (
 
-      currentUser?.isAdmin ?
+      currentUser && currentUser?.isAdmin ?
 
         <div className="w-full min-h-screen">
 
           <div className="">
 
             <Header/>
-            
+
           </div>
 
           <div className="">

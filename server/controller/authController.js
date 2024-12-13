@@ -175,13 +175,13 @@ export const forgotPassword = async (req,res,next) => {
             }
         })
 
-        const url = process.env.FRONTEND_URL
+        const url = process.env.FRONTEND_URL 
 
         const mailOptions = {
             from:'KICKS 254',
             to:user.email,
             subject:"RESET PASSORD",
-            text:`Click the link and to reset your password:${url}/${token}`
+            text:`Click the link and to reset your password: ${url}/reset-password/${token}`
         }
 
         transporter.sendMail(mailOptions ,(error,info) => {
