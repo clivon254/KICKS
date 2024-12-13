@@ -50,7 +50,7 @@ export const mpesa = async (req,res,next) => {
         const url = "https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest"
 
 
-        const Callback_url = process.env.CALLBACK_URL 
+        const Callback_url = process.env.CALLBACK_URL
 
 
         const requestBody = {    
@@ -62,7 +62,7 @@ export const mpesa = async (req,res,next) => {
             "PartyA":`254${phone}`,    
             "PartyB":shortcode,    
             "PhoneNumber":`254${phone}`,    
-            "CallBackURL":`${Callback_url}/callback?orderId=${order._id}&userId=${userId}`,    
+            "CallBackURL":`${Callback_url}/api/order/callback?orderId=${order._id}&userId=${userId}`,    
             "AccountReference":"KICKS",    
             "TransactionDesc":"Test"
         }
@@ -111,7 +111,7 @@ export const callback  = async (req,res,next) => {
     try
     {
         const callbackData = req.body
-
+            
         if(!callbackData.Body.stkCallback.CallbackMetadata)
         {
             console.log(callbackData.Body)

@@ -18,7 +18,7 @@ const productSchema = new mongoose.Schema(
 
         images:{type:Array , required:true},
 
-        instock:{type:Number , required:true},
+        instock:{type:Number , required:true , min:0},
 
         feature:{type:Boolean , default:false},
 

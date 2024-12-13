@@ -147,8 +147,25 @@ export const deleteProduct = async (req,res,next) => {
 
 export const stats = async (req,res,next) => {
 
+    
     try
-    {}
+    {
+        const {query} = req.query
+
+        const numofDays = Number(query) || 28
+
+        const currentDate = new Date()
+
+        const startDate = new Date()
+
+        startDate.setDate(currentDate.getDate() - numofDays)
+
+        const totalProdocts = await Product.find({}).countDocuments()
+
+        const outOfStock = await Product.find({instock: {$lt:1}})
+
+        
+    }
     catch(error)
     {
         next(error)
