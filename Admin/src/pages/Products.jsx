@@ -9,12 +9,14 @@ import { Link } from 'react-router-dom'
 import {HiExclamationCircle} from "react-icons/hi"
 import axios from 'axios'
 import { toast } from 'sonner'
+import Loading from '../components/Loading'
+import Error from '../components/Error'
 
 
 
 export default function Products() {
 
-  const {url ,token ,products ,setProducts , productLoading ,productError} = useContext(StoreContext)
+  const {url ,token ,products ,setProducts , productLoading ,productError,fetchProducts} = useContext(StoreContext)
 
   const [open ,setOpen] = useState(false)
 
@@ -52,7 +54,7 @@ export default function Products() {
 
       {productLoading && !productError && (
 
-        <div className=""></div>
+        <Loading/>
 
       )}
 
@@ -193,7 +195,7 @@ export default function Products() {
 
       {productError && (
 
-        <div className=""></div>
+        <Error retry={fetchProducts}/>
 
       )}
 

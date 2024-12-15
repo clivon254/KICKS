@@ -73,3 +73,15 @@
 {
     @apply text-sm font-semibold uppercase
 }
+
+/* images */
+.image-thumb-nails::-webkit-scrollbar
+{
+    display: none;
+}
+
+.image-thumb-nails
+{
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}

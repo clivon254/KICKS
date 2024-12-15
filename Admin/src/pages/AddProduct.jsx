@@ -40,7 +40,28 @@ export default function AddProduct() {
 
   const [selectedSizes ,setSelectedSizes] = useState([])
 
-  const [colors , setColors] = useState(['red','green','blue','gray','yellow','black'])
+  const [colors , setColors] = useState([
+    {
+      color: 'Red',
+      hex: '#FF0000',
+    },
+    {
+      color: 'Blue',
+      hex: '#0000FF',
+    },
+    {
+      color: 'Green',
+      hex: '#00FF00',
+    },
+    {
+      color: 'Yellow',
+      hex: '#FFFF00',
+    },
+    {
+      color: 'Purple',
+      hex: '#800080',
+    }
+  ])
 
   const [selectedColors ,setSelectedColors] = useState([])
   
@@ -421,7 +442,7 @@ export default function AddProduct() {
               <ListboxButton className="z-40 relative w-full cursor-default rounded bg-transparent pl-3 pr-3 text-left px-3 py-4 2xl:py-6 border border-gray-500 sm:text-sm outline-blue-800">
 
                 <span className="">
-                  {selectedColors?.map((user) => user).join(",")}
+                  {selectedColors?.map((user) => user.color).join(",")}
                 </span>
 
                 <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
@@ -456,7 +477,7 @@ export default function AddProduct() {
                               "flex items-center gap-2 truncate",
                               selected ? "font-medium" : "font-normal"
                             )}>
-                               <span className="">{color}</span>
+                               <span className="">{color.color}</span>
                             </div>
 
                             {selected && (
