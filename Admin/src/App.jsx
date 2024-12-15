@@ -17,6 +17,8 @@ import Orders from './pages/Orders'
 import AddCoupon from './pages/AddCoupon'
 import Profile from './pages/Profile'
 import Subscribers from './pages/Subscribers'
+import UpdateProduct from './pages/UpdateProduct'
+import ProductPage from './pages/ProductPage'
 
 function App() {
  
@@ -76,6 +78,10 @@ function App() {
           <Route element={<Layout/>}>
 
             <Route path="/" element={<Dashboard/>}/>
+
+            <Route path="/product/:productId" element={<ProductPage/>}/>
+
+            <Route path="/update-product/:productId" element={<UpdateProduct/>}/>
 
             <Route path="/add-product" element={<AddProduct/>}/>
 

@@ -19,7 +19,41 @@ export default function StoreContextProvider (props){
 
     const [cartItems , setCartItems] = useState(null)
 
+    const [products , setProducts] = useState([])
 
+    const [productLoading , setProductLoading] = useState(false)
+
+    const [productError , setProductError] = useState(true)
+
+
+
+    // fetch products
+    const fetchProducts = async () => {
+
+        setProductLoading(true)
+
+        setProductError(false)
+
+        try
+        {
+            const res = await axios.get(url + "/api/product/get-products")
+
+            if(res.data.success)
+            {
+                setProducts(res.data.products)
+
+                setProductLoading(false)
+            }
+
+        }
+        catch(error)
+        {
+            console.log(error.message)
+
+            setProductError(true)
+        }
+
+    }
 
 
     // getcart
@@ -53,11 +87,15 @@ export default function StoreContextProvider (props){
 
     }
 
+
     useEffect(() => {
 
         getCart()
 
+        fetchProducts()
+
     },[])
+
 
     const contextValue = {
         url,
@@ -65,7 +103,11 @@ export default function StoreContextProvider (props){
         open,setOpen,
         cartItems,setCartItems,
         cartNumber,setCartNumber,
-        cartAmount,setCartAmount
+        cartAmount,setCartAmount,
+        products,setProducts,
+        productLoading,setProductLoading,
+        productError,setProductError,
+        fetchProducts
     }
 
     return(

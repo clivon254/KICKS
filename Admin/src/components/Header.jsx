@@ -128,7 +128,7 @@ export default function Header() {
 
         {/* drawer */}
         <div 
-            className={`fixed z-[100] lg:hidden h-screen w-full bg-black/50 backdrop-blur-sm ${open ? "left-0" :"left-[-100%]"}`}
+            className={`fixed z-50 lg:hidden h-screen w-full bg-black/50 backdrop-blur-sm ${open ? "left-0" :"left-[-100%]"}`}
         >
 
             <div className="absolute left-0 w-[70%] h-full bg-white space-y-10 ">
