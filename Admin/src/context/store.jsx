@@ -19,6 +19,10 @@ export default function StoreContextProvider (props){
 
     const [cartItems , setCartItems] = useState(null)
 
+    const [cartData , setCartData] = useState(null)
+
+    const [cartOpen ,setCartOpen] = useState(false)
+
     const [products , setProducts] = useState([])
 
     const [productLoading , setProductLoading] = useState(false)
@@ -67,7 +71,7 @@ export default function StoreContextProvider (props){
             {
                 setCartNumber(res.data.totalProducts)
 
-                setCartItems(res.data.totalProducts)
+                setCartItems(res.data.cartData)
 
                 setCartAmount(res.data.totalPrice)
             }
@@ -87,7 +91,7 @@ export default function StoreContextProvider (props){
 
     }
 
-
+    
     useEffect(() => {
 
         getCart()
@@ -97,6 +101,108 @@ export default function StoreContextProvider (props){
     },[])
 
 
+    useEffect(() => {
+
+      const tempData = []
+
+      for(const itemId in cartItems)
+      {
+        
+        let hasSizes = false
+
+        if(typeof cartItems[itemId] === 'object')
+        {
+
+            for(const size in cartItems[itemId])
+            {
+
+                hasSizes = true
+
+                if(typeof cartItems[itemId][size] === 'object')
+                {
+
+                    for(const color in cartItems[itemId][size])
+                    {
+                        const quantity = cartItems[itemId][size][color]
+
+                        if(quantity > 0 )
+                        {
+
+                            tempData.push({
+                                _id:itemId,
+                                size:size,
+                                color:color,
+                                quantity:quantity
+                            })
+
+                        }
+
+                    }
+
+                }
+                else
+                {
+                    const quantity = cartItems[itemId][size]
+
+                    if(quantity > 0)
+                    {
+
+                        tempData.push({
+                            _id:itemId,
+                            size:size,
+                            quantity:quantity
+                        })
+                    }
+                }
+
+            }
+
+            // If there are no sizes, check for colors directly
+            if (!hasSizes) {
+
+                for (const color in cartItems[itemId]) {
+
+                    const quantity = cartItems[itemId][color];
+
+                    if (quantity > 0) {
+                
+                        tempData.push({
+                            _id: itemId,
+                            color: color,
+                            quantity: quantity
+                        })
+
+                    }
+                }
+            }
+
+        }
+        else
+        {
+
+            if(cartItems[itemId] > 0)
+            {
+
+                tempData.push({
+                    _id:itemId,
+                    quantity:cartItems[itemId]
+                })
+
+            }
+
+        }
+
+      }
+
+      setCartData(tempData)
+
+    },[cartItems])
+
+
+    console.log(cartData)
+
+
+
     const contextValue = {
         url,
         token,setToken,
@@ -104,10 +210,13 @@ export default function StoreContextProvider (props){
         cartItems,setCartItems,
         cartNumber,setCartNumber,
         cartAmount,setCartAmount,
+        cartData,setCartData,
+        cartOpen,setCartOpen,
+        getCart,
         products,setProducts,
         productLoading,setProductLoading,
         productError,setProductError,
-        fetchProducts
+        fetchProducts,
     }
 
     return(

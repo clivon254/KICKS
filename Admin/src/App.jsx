@@ -19,6 +19,8 @@ import Profile from './pages/Profile'
 import Subscribers from './pages/Subscribers'
 import UpdateProduct from './pages/UpdateProduct'
 import ProductPage from './pages/ProductPage'
+import Cart from './pages/Cart'
+import CheckOut from './pages/CheckOut'
 
 function App() {
  
@@ -94,6 +96,10 @@ function App() {
             <Route path="/coupons" element={<AddCoupon/>}/>
 
             <Route path="/profile" element={<Profile/>}/>
+
+            <Route path="/cart" element={<Cart/>}/>
+
+            <Route path="/checkout" element={<CheckOut/>}/>
 
             <Route path="/subscribe" element={<Subscribers/>}/>
 

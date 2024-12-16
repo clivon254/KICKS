@@ -85,3 +85,9 @@
     -ms-overflow-style: none;
     scrollbar-width: none;
 }
+
+/* quantity */
+.quantity
+{
+    @apply flex items-center justify-center border border-black text-base text-black h-8 w-8 font-bold
+}

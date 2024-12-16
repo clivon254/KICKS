@@ -8,7 +8,7 @@ import { Avatar, Dropdown } from "flowbite-react"
 import { MdClose, MdLogout, MdMenu, MdShoppingBag, MdShoppingCart } from "react-icons/md"
 import { signOutSuccess } from '../redux/user/userSlice'
 import { toast } from 'sonner'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import SideBar from './SideBar'
 
 export default function Header() {
@@ -18,6 +18,8 @@ export default function Header() {
     const {currentUser} = useSelector(state => state.user)
 
     const dispatch = useDispatch()
+
+    const navigate = useNavigate()
 
     // handleSignout
     const handleSignout = () => {
@@ -78,7 +80,10 @@ export default function Header() {
 
                     <div className="relative">
 
-                        <MdShoppingBag size={30}/>
+                        <MdShoppingBag 
+                            size={30} 
+                            onClick={() => navigate('/cart')}
+                        />
                         
                         <span className="absolute -right-3 -top-2 flex items-center justify-center h-6 w-6 bg-blue-800 text-white rounded-full">
                             {cartNumber}
@@ -128,7 +133,7 @@ export default function Header() {
 
         {/* drawer */}
         <div 
-            className={`fixed z-50 lg:hidden h-screen w-full bg-black/50 backdrop-blur-sm ${open ? "left-0" :"left-[-100%]"}`}
+          className={`fixed z-50 lg:hidden h-screen w-full bg-black/50 backdrop-blur-sm ${open ? "left-0" :"left-[-100%]"}`}
         >
 
             <div className="absolute left-0 w-[70%] h-full bg-white space-y-10 ">
