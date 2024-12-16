@@ -419,7 +419,7 @@ export default function AddProduct() {
                   className="input"
                   placeholder='discountPrice' 
                   value={formData.discountPrice}
-                  onChange={() => setFormData({...formData , discountPrice : e.target.value})}
+                  onChange={(e) => setFormData({...formData , discountPrice : e.target.value})}
               />
 
           </div>

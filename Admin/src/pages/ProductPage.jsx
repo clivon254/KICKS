@@ -267,7 +267,7 @@ export default function ProductPage() {
                         {/* price */}
                         <div className="text-base font-semibold">
 
-                            {product.disccountPrice > 0 ? 
+                            {product.discountPrice > 0 ? 
                                 (
                                     <div className="flex items-center gap-x-3">
 
@@ -447,11 +447,11 @@ export default function ProductPage() {
                                 ))}
                             </Swiper>
 
-                            <div className="prev absolute top-1/3 -left-4 z-40 h-10 w-10 bg-blue-800  rounded-full flex justify-center items-center cursor-pointer">
+                            <div className="prev absolute top-1/3 -left-4 z-40 h-10 w-10 bg-blue-800 text-white  rounded-full flex justify-center items-center cursor-pointer">
                                 <MdChevronLeft size={32} className=""/>
                             </div>
 
-                            <div className="next absolute top-1/3 -right-4 z-40 h-10 w-10 bg-blue-800  rounded-full flex justify-center items-center cursor-pointer">
+                            <div className="next absolute top-1/3 -right-4 z-40 h-10 w-10 bg-blue-800 text-white rounded-full flex justify-center items-center cursor-pointer">
                                 <MdChevronRight size={32} className=""/>
                             </div>
 

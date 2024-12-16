@@ -21,6 +21,7 @@ import UpdateProduct from './pages/UpdateProduct'
 import ProductPage from './pages/ProductPage'
 import Cart from './pages/Cart'
 import CheckOut from './pages/CheckOut'
+import ConfirmPayment from './pages/ConfirmPayment'
 
 function App() {
  
@@ -100,6 +101,8 @@ function App() {
             <Route path="/cart" element={<Cart/>}/>
 
             <Route path="/checkout" element={<CheckOut/>}/>
+
+            <Route path="/confirm-payment/:CheckoutRequestID/:orderId" element={<ConfirmPayment/>}/>
 
             <Route path="/subscribe" element={<Subscribers/>}/>
 

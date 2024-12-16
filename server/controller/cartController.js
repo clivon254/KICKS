@@ -262,7 +262,7 @@ export const getCart = async (req,res,next) => {
 
                             totalProducts += quantity
 
-                            totalPrice += quantity * product.offer ? product.discountPrice : product.regularPrice 
+                            totalPrice += (quantity * (product.discountPrice > 0 ? product.discountPrice : product.regularPrice))
                         }
 
                     }

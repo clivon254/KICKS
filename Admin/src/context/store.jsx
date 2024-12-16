@@ -27,8 +27,13 @@ export default function StoreContextProvider (props){
 
     const [productLoading , setProductLoading] = useState(false)
 
-    const [productError , setProductError] = useState(true)
+    const [productError , setProductError] = useState(false)
 
+    const [orders ,setOrders] = useState([])
+
+    const [orderLoading ,setOrderLoading] = useState(false)
+
+    const [orderError ,setOrderError] = useState(false)
 
 
     // fetch products
@@ -91,12 +96,45 @@ export default function StoreContextProvider (props){
 
     }
 
+    // fetchOrder
+    const fetchOrders = async () => {
+
+        setOrderLoading(true)
+
+        setOrderError(false)
+
+        try
+        {
+            const res = await axios.get(url + "/api/order/get-adminOrders",{headers:{token}})
+
+            if(res.data.success)
+            {
+                setOrders(res.data.orders)
+
+                setOrderLoading(false)
+            }
+
+        }
+        catch(error)
+        {
+            console.log(error.message)
+
+            setOrderError(true)
+
+            setOrderLoading(false)
+
+        }
+
+    }
+
     
     useEffect(() => {
 
         getCart()
 
         fetchProducts()
+
+        fetchOrders()
 
     },[])
 
@@ -202,7 +240,6 @@ export default function StoreContextProvider (props){
     console.log(cartData)
 
 
-
     const contextValue = {
         url,
         token,setToken,
@@ -217,6 +254,10 @@ export default function StoreContextProvider (props){
         productLoading,setProductLoading,
         productError,setProductError,
         fetchProducts,
+        orders,setOrders,
+        orderLoading,setOrderLoading,
+        orderError,setOrderError,
+        fetchOrders,
     }
 
     return(

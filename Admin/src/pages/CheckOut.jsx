@@ -233,7 +233,7 @@ export default function CheckOut() {
 
                         setLoading(false)
 
-                        const orderId = res.data.order_id 
+                        const orderId = res.data.order._id 
 
                         const CheckoutRequestID = res.data.resData.CheckoutRequestID
 
@@ -453,7 +453,7 @@ export default function CheckOut() {
                 <h2 className="text-base font-semibold">Order summary</h2>
 
                 {/* products */}
-                <div className="">
+                <div className="space-y-2">
 
                     {cartData?.map((item,index) => {
 

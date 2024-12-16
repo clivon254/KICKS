@@ -2,7 +2,7 @@
 
 import express from "express"
 import { generateAccessToken, verifyToken } from "../utils/verify.js"
-import { adminOrders, callback, COD, confirmPayment, mpesa, updateStatus, userOrders } from "../controller/orderController.js"
+import { adminOrders, callback, COD, confirmPayment, deleteOrder, mpesa, updateStatus, userOrders } from "../controller/orderController.js"
 
 
 
@@ -29,6 +29,9 @@ orderRouter.get('/get-adminOrders' , verifyToken, adminOrders)
 
 
 orderRouter.put('/update-status' , verifyToken, updateStatus)
+
+
+orderRouter.delete('/delete-order/:orderId' , verifyToken, deleteOrder)
 
 
 

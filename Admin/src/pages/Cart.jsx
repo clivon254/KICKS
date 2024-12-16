@@ -364,11 +364,11 @@ export default function Cart() {
                             </Swiper>
 
                             <div className="prev absolute top-1/3 -left-4 z-40 h-10 w-10 bg-blue-800  rounded-full flex justify-center items-center cursor-pointer">
-                                <MdChevronLeft size={32} className=""/>
+                                <MdChevronLeft size={32} className="text-white"/>
                             </div>
 
                             <div className="next absolute top-1/3 -right-4 z-40 h-10 w-10 bg-blue-800  rounded-full flex justify-center items-center cursor-pointer">
-                                <MdChevronRight size={32} className=""/>
+                                <MdChevronRight size={32} className="text-white"/>
                             </div>
 
                         </div>
@@ -387,19 +387,20 @@ export default function Cart() {
 
                 <div className="pt-20 min-h-[60vh] flex items-center justify-enter flex-col gap-y-5">
 
-                        <p className="font-medium text-center xl:font-bold text-xl">Your cart empty</p>
+                    <p className="font-medium text-center xl:font-bold text-xl">Your cart empty</p>
 
-                        <button className="btn rounded font-semibold">
-                            
-                            <Link 
-                                to="/shop"
-                                className="flex items-center gap-x-5"
-                            >
-                                Return to shop 
-                                <span className=""><FaLongArrowAltRight size={30}/></span>
-                            </Link>
+                    <button className="btn rounded font-semibold">
+                        
+                        <Link 
+                            to="/shop"
+                            className="flex items-center gap-x-5"
+                        >
+                            Return to shop 
+                            <span className=""><FaLongArrowAltRight size={30}/></span>
+                        </Link>
 
-                        </button>
+                    </button>
+
                 </div>
 
             </div>
