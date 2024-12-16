@@ -166,7 +166,7 @@ export default function AddProduct() {
   // handleSubmit
   const handleSubmit = async (e) => {
 
-    e.preventDefault(e)
+    e.preventDefault()
 
     if(formData?.images?.length < 0)
     {

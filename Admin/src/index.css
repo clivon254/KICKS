@@ -23,12 +23,12 @@
 
 .btn
 {
-    @apply bg-blue-800 py-3 px-2 text-white text-base disabled:opacity-50
+    @apply bg-blue-800 py-3 px-2 text-white text-base disabled:opacity-70
 }
 
 .btn2
 {
-    @apply bg-black py-3 px-2 text-white text-base disabled:opacity-50
+    @apply bg-black py-3 px-2 text-white text-base disabled:opacity-70
 }
 
 /* utilites */
@@ -49,7 +49,7 @@
 
 .loading
 {
-    @apply h-7 w-7  border border-r-white border-t-white border-black 
+    @apply h-6 w-6  border border-r-white border-t-white border-black 
     rounded-full  animate-spin
 }
 
