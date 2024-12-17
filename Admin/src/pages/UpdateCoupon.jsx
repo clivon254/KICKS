@@ -110,7 +110,7 @@ export default function UpdateCoupon() {
 
         {!fetchCouponLoading && !fetchCouponError && (
 
-            <section className="section space-y-5">
+            <section className="section space-y-4 max-w-lg mx-auto">
 
                     <h1 className="title2 text-center">Update Coupon</h1>
 
@@ -183,6 +183,7 @@ export default function UpdateCoupon() {
                     </form>
 
             </section>
+            
         )}
 
         {fetchCouponLoading && !fetchCouponError && (

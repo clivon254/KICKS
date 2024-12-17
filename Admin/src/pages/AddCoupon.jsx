@@ -65,7 +65,7 @@ export default function AddCoupon() {
 
   return (
     
-    <section className="section space-y-5">
+    <section className="section  space-y-4 max-w-lg mx-auto">
 
       <h1 className="title2 text-center">Add Coupon</h1>
 

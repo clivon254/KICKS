@@ -261,9 +261,9 @@ export default function AddProduct() {
 
   return (
     
-    <section className="section">
+    <section className="section space-y-4 max-w-lg mx-auto">
 
-      <h1 className="text-center title2">Add Product</h1>
+      <h1 className="text-center title2 ">Add Product</h1>
 
       <form onSubmit={handleSubmit} className="flex flex-col gap-y-5 ">
 

@@ -308,7 +308,7 @@ export default function UpdateProduct() {
 
         {!productError && !productLoading &&(
 
-            <section className="section">
+            <section className="section space-y-4 max-w-lg mx-auto">
 
             <h1 className="text-center title2">Update Product</h1>
 
