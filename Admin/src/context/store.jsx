@@ -273,7 +273,6 @@ export default function StoreContextProvider (props){
     },[cartItems])
 
 
-    console.log(cartData)
 
 
     const contextValue = {
