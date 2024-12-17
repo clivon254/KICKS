@@ -133,18 +133,18 @@ export default function Header() {
 
         {/* drawer */}
         <div 
-          className={`fixed z-50 lg:hidden h-screen w-full bg-black/50 backdrop-blur-sm ${open ? "left-0" :"left-[-100%]"}`}
+          className={`w-full h-full  fixed top-0  bg-black/50 backdrop-blur-sm  origin-right transition-all  duration-200 ease-in ${open ? "left-0" :"left-[-100%]"}`}
         >
 
-            <div className="absolute left-0 w-[70%] h-full bg-white space-y-10 ">
+            <div className="absolute  left-0 w-[70%] h-full bg-white space-y-6  ">
 
-                {/* <div className="flex justify-end ">
+                <div className="flex justify-start p-2">
 
                     <span className="">
-                        <MdClose size={42} onClick={() => setOpen(false)} />
+                        <MdClose size={32} onClick={() => setOpen(false)} />
                     </span>
 
-                </div> */}
+                </div>
 
                 <SideBar />
 
