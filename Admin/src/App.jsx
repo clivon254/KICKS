@@ -22,6 +22,8 @@ import ProductPage from './pages/ProductPage'
 import Cart from './pages/Cart'
 import CheckOut from './pages/CheckOut'
 import ConfirmPayment from './pages/ConfirmPayment'
+import Coupon from './pages/Coupon'
+import UpdateCoupon from './pages/UpdateCoupon'
 
 function App() {
  
@@ -94,7 +96,9 @@ function App() {
 
             <Route path="/add-coupon" element={<AddCoupon/>}/>
 
-            <Route path="/coupons" element={<AddCoupon/>}/>
+            <Route path="/update-coupon/:couponId" element={<UpdateCoupon/>}/>
+
+            <Route path="/coupons" element={<Coupon/>}/>
 
             <Route path="/profile" element={<Profile/>}/>
 

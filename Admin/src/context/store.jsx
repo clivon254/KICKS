@@ -35,6 +35,12 @@ export default function StoreContextProvider (props){
 
     const [orderError ,setOrderError] = useState(false)
 
+    const [coupons ,setCoupons] = useState([])
+
+    const [couponLoading ,setCouponLoading] = useState(false)
+
+    const [couponError ,setCouponError] = useState(false)
+
 
     // fetch products
     const fetchProducts = async () => {
@@ -127,6 +133,34 @@ export default function StoreContextProvider (props){
 
     }
 
+    // fetchCoupons
+    const fetchCoupons = async () => {
+
+        setCouponLoading(true)
+
+        setCouponError(false)
+
+        try
+        {
+            const res = await axios.get(url + "/api/coupon/get-coupons",{headers:{token}})
+
+            if(res.data.success)
+            {
+                setCouponLoading(false)
+
+                setCoupons(res.data.coupons)
+            }
+
+        }
+        catch(error)
+        {
+            console.log(error.message)
+
+            setCouponLoading(false)
+        }
+
+    }
+
     
     useEffect(() => {
 
@@ -135,6 +169,8 @@ export default function StoreContextProvider (props){
         fetchProducts()
 
         fetchOrders()
+
+        fetchCoupons()
 
     },[])
 
@@ -258,6 +294,10 @@ export default function StoreContextProvider (props){
         orderLoading,setOrderLoading,
         orderError,setOrderError,
         fetchOrders,
+        coupons,setCoupons,
+        couponLoading,setCouponLoading,
+        couponError,setCouponError,
+        fetchCoupons
     }
 
     return(
