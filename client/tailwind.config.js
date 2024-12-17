@@ -10,7 +10,25 @@ export default {
     flowbite.content()
   ],
   theme: {
-    extend: {},
+    extend: {
+
+      colors:{
+
+        primary: "#3239fa",
+        secondary:"#e6f9fc"
+
+      },
+
+      fontFamily:{
+        
+        logo:["Faster One", "serif"],
+        
+        text:["Poppins", "serif"],
+
+        title: ["Roboto", "serif"]
+
+      }
+    },
   },
   plugins: [
     flowbite.plugin(),
