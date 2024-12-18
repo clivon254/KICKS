@@ -302,7 +302,6 @@ export default function CheckOut() {
 
     }
 
-    console.log(delivery)
 
   return (
     
@@ -458,57 +457,62 @@ export default function CheckOut() {
                     {cartData?.map((item,index) => {
 
                         const product = products.find((product) => product._id === item._id)
+                        
+                        if(product)
+                        {
 
-                        return(
+                            return(
 
-                            <div 
-                                className="flex items-start justify-between gap-x-5"
-                                key={index}
-                            >
+                                <div 
+                                    className="flex items-start justify-between gap-x-5"
+                                    key={index}
+                                >
 
-                                <div className="flex items-start gap-x-5">
+                                    <div className="flex items-start gap-x-5">
 
-                                    <div className="h-12 w-12 min-h-12 min-w-12 relative">
+                                        <div className="h-12 w-12 min-h-12 min-w-12 relative">
 
-                                        <img 
-                                            src={product?.images[0]}
-                                            alt="" 
-                                            className="h-full w-full" 
-                                        />
-                                        
-                                        <span className="absolute top-0 -right-2 h-6 w-6 bg-blue-800 text-white rounded-full grid place-content-center">
-                                            {item.quantity}
-                                        </span>
+                                            <img 
+                                                src={product?.images[0]}
+                                                alt="" 
+                                                className="h-full w-full" 
+                                            />
+                                            
+                                            <span className="absolute top-0 -right-2 h-6 w-6 bg-primary text-white rounded-full grid place-content-center">
+                                                {item.quantity}
+                                            </span>
+
+                                        </div>
+
+                                        <div className="flex flex-col text-xs font-medium">
+
+                                            <span className="">{product?.name}</span>
+
+                                            {item?.size && (
+
+                                                <span className="">size : {item?.size}</span>
+
+                                            )}
+
+                                            {item?.color && (
+
+                                                <span className="">color :{item?.color}</span>
+
+                                            )}
+
+                                        </div>
 
                                     </div>
 
-                                    <div className="flex flex-col text-xs font-medium">
-
-                                        <span className="">{product?.name}</span>
-
-                                        {item?.size && (
-
-                                            <span className="">size : {item?.size}</span>
-
-                                        )}
-
-                                        {item?.color && (
-
-                                            <span className="">color :{item?.color}</span>
-
-                                        )}
-
+                                    <div className="text-sm">
+                                        {(item.quantity * product?.discountPrice > 0 ? product?.discountPrice : product?.regularPrice).toLocaleString('en-Kenya', { style: 'currency', currency: 'KES' })}
                                     </div>
 
                                 </div>
 
-                                <div className="text-sm">
-                                    {(item.quantity * product?.discountPrice > 0 ? product?.discountPrice : product?.regularPrice).toLocaleString('en-Kenya', { style: 'currency', currency: 'KES' })}
-                                </div>
+                            )
 
-                            </div>
-
-                        )
+                        }
 
                     })}
 

@@ -74,16 +74,16 @@ export default function Orders() {
 
           <h1 className="title3 text-center">Orders</h1>
 
-          <div className="w-full">
+          <div className="">
 
             {orders.length > 0 ? 
             (
-              <div className="w-full space-y-3">
+              <div className="space-y-3">
 
                 {orders.map((order,index) => (
 
                   <div 
-                    className="w-full grid grid-col-1 sm:grid-cols-[2fr_1fr_1fr] lg:grid-cols-[2fr_1fr_1fr_1fr] gap-3 items-start border-2 border-zinc-800 text-xs p-5 rounded-md"
+                    className="grid grid-col-1 sm:grid-cols-[2fr_1fr_1fr_1fr] lg:grid-cols-[2fr_1fr_1fr_1fr] gap-3 items-start border-2 border-zinc-800 text-xs p-5 rounded-md"
                     key={index}
                   >
 
@@ -177,44 +177,13 @@ export default function Orders() {
 
                       </div>
 
-                      {/* actions */}
-                      <div className="flex items-center gap-x-3">
-                        
-                        {/* status */}
-                        <div className="text-xs">
-
-                            <select 
-                              value={order?.status}
-                              onChange={(event) => statusHandler(event,order._id)}
-                              className="rounded border border-zinc-800"
-                            >
-
-                              <option value="Order Placed" >Order Placed</option>
-
-                              <option value="Processing" >Processing</option>
-
-                              <option value="Out for delivery" >Out for delivery</option>
-
-                              <option value="Delivered" >Delivered</option>
-
-                            </select>
-
-                        </div>
-
-                        <span className="cursor-pointer">
-
-                          <FaTrashAlt 
-                              size={24} 
-                              className="text-red-600"
-                              onClick={() => {
-                                setOpen(true)
-
-                                setOrderIdToDelete(order._id)
-                              }}
-                          />
-
-                        </span>
-
+                     
+                      {/* status */}
+                      <div 
+                        className="text-xs font-medium input"
+                        onClick={() => fetchOrders()}
+                      >
+                          Track order: <span className="font-semibold text-sm">{order.status} </span>
                       </div>
 
                   </div>

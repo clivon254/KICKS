@@ -194,79 +194,85 @@ export default function Cart() {
 
                                 {cartData?.map((item,index) => {
 
-                                    const product = products.find((product) => product._id === item._id)
+                                    const product = products?.find((product) => product._id === item._id)
 
-                                    return (
+                                    if(product)
+                                    {
 
-                                        <Table.Body>
+                                        return (
 
-                                            <Table.Row>
+                                            <Table.Body>
 
-                                                <Table.Cell>
+                                                <Table.Row>
 
-                                                    <div className="h-20 w-20 min-w-20 min-h-20">
+                                                    <Table.Cell>
 
-                                                        <img 
-                                                            src={product.images[0]} 
-                                                            alt="" 
-                                                            className="w-full h-full" 
-                                                        />
+                                                        <div className="h-20 w-20 min-w-20 min-h-20">
 
-                                                    </div>
-                                                </Table.Cell>
+                                                            <img 
+                                                                src={product?.images[0]} 
+                                                                alt="" 
+                                                                className="w-full h-full" 
+                                                            />
 
-                                                <Table.Cell>
+                                                        </div>
 
-                                                    <div className="flex flex-col">
+                                                    </Table.Cell>
 
-                                                        <span className="font-medium text-black underline">{product.name}</span>
+                                                    <Table.Cell>
 
-                                                        {item?.size && ( 
-                                                            <span className="">
-                                                                size:{item.size}
-                                                            </span> 
-                                                        )}
+                                                        <div className="flex flex-col">
 
-                                                        {item?.color && ( 
-                                                            <span className="">
-                                                                color:{item.color}
-                                                            </span> 
-                                                        )}
+                                                            <span className="font-medium text-black underline">{product?.name}</span>
 
-                                                    </div>
+                                                            {item?.size && ( 
+                                                                <span className="">
+                                                                    size:{item?.size}
+                                                                </span> 
+                                                            )}
 
-                                                </Table.Cell>
+                                                            {item?.color && ( 
+                                                                <span className="">
+                                                                    color:{item?.color}
+                                                                </span> 
+                                                            )}
 
-                                                <Table.Cell>
+                                                        </div>
 
-                                                    <div className="flex items-center">
+                                                    </Table.Cell>
 
-                                                        <span 
+                                                    <Table.Cell>
+
+                                                        <div className="flex items-center">
+
+                                                            <span 
+                                                                className="quantity cursor-pointer"
+                                                                onClick={() => handleCartDecrease(product,item)}
+                                                            >
+                                                                -
+                                                            </span>
+
+                                                            <span className="quantity">{item?.quantity}</span>
+
+                                                            <span 
                                                             className="quantity cursor-pointer"
-                                                            onClick={() => handleCartDecrease(product,item)}
-                                                        >
-                                                            -
-                                                        </span>
+                                                            onClick={() => handleCartIncrease(product,item)}
+                                                            >+</span>
 
-                                                        <span className="quantity">{item.quantity}</span>
+                                                        </div>
 
-                                                        <span 
-                                                          className="quantity cursor-pointer"
-                                                          onClick={() => handleCartIncrease(product,item)}
-                                                        >+</span>
+                                                    </Table.Cell>
 
-                                                    </div>
+                                                    <Table.Cell>
+                                                        {((product?.discountPrice > 0 ? product?.discountPrice : product?.regularPrice) * item?.quantity)?.toLocaleString('en-KE', { style: 'currency', currency: 'KES' })}
+                                                    </Table.Cell>
 
-                                                </Table.Cell>
+                                                </Table.Row>
 
-                                                <Table.Cell>
-                                                    {((product.discountPrice > 0 ? product.discountPrice : product.regularPrice) * item.quantity).toLocaleString('en-KE', { style: 'currency', currency: 'KES' })}
-                                                </Table.Cell>
+                                            </Table.Body>
+                                        )
 
-                                            </Table.Row>
-
-                                        </Table.Body>
-                                    )
+                                    }
 
                                 })}
 
@@ -367,11 +373,11 @@ export default function Cart() {
                                 ))}
                             </Swiper>
 
-                            <div className="prev absolute top-1/3 -left-4 z-40 h-10 w-10 bg-blue-800  rounded-full flex justify-center items-center cursor-pointer">
+                            <div className="prev absolute top-1/3 -left-4 z-40 h-5 w-5 bg-primary  rounded-full flex justify-center items-center cursor-pointer">
                                 <MdChevronLeft size={32} className="text-white"/>
                             </div>
 
-                            <div className="next absolute top-1/3 -right-4 z-40 h-10 w-10 bg-blue-800  rounded-full flex justify-center items-center cursor-pointer">
+                            <div className="next absolute top-1/3 -right-4 z-40 h-5 w-5 bg-primary  rounded-full flex justify-center items-center cursor-pointer">
                                 <MdChevronRight size={32} className="text-white"/>
                             </div>
 

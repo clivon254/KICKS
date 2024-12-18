@@ -34,11 +34,11 @@ export default function Home() {
 
         <div className="flex items-center gap-x-3">
 
-          <div className="prev  z-40 h-5 w-5 bg-primary text-white  rounded-full flex justify-center items-center cursor-pointer">
+          <div className="prevArrival  z-40 h-5 w-5 bg-primary text-white  rounded-full flex justify-center items-center cursor-pointer">
                 <MdChevronLeft size={32} className=""/>
           </div>
 
-          <div className="next z-40 h-5 w-5 bg-primary text-white rounded-full flex justify-center items-center cursor-pointer">
+          <div className="nextArrival z-40 h-5 w-5 bg-primary text-white rounded-full flex justify-center items-center cursor-pointer">
               <MdChevronRight size={32} className=""/>
           </div>
 
@@ -80,8 +80,8 @@ export default function Home() {
                   },
               }} 
               navigation={{
-              prevEl:'.prev',
-              nextEl:'.next'
+              prevEl:'.prevArrival',
+              nextEl:'.nextArrival'
           }}
           >
               {products?.map((product,index) => (
@@ -111,11 +111,11 @@ export default function Home() {
 
         <div className="flex items-center gap-x-3">
 
-          <div className="prev  z-40 h-5 w-5 bg-primary text-white  rounded-full flex justify-center items-center cursor-pointer">
+          <div className="prevFeature  z-40 h-5 w-5 bg-primary text-white  rounded-full flex justify-center items-center cursor-pointer">
                 <MdChevronLeft size={32} className=""/>
           </div>
 
-          <div className="next z-40 h-5 w-5 bg-primary text-white rounded-full flex justify-center items-center cursor-pointer">
+          <div className="nextFeature z-40 h-5 w-5 bg-primary text-white rounded-full flex justify-center items-center cursor-pointer">
               <MdChevronRight size={32} className=""/>
           </div>
 
@@ -157,8 +157,8 @@ export default function Home() {
                   },
               }} 
               navigation={{
-              prevEl:'.prev',
-              nextEl:'.next'
+              prevEl:'.prevFeature',
+              nextEl:'.nextFeature'
           }}
           >
               {products?.map((product,index) => (

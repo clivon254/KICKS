@@ -9,7 +9,7 @@ export default function ProductCard({product}) {
 
     <div>
 
-        <div className="h-[200px] w-full">
+        <div className="h-[250px] w-full">
 
             <Link to={`/product/${product._id}`}>
 

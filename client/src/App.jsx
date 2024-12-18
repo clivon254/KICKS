@@ -12,6 +12,8 @@ import { Toaster } from 'sonner'
 import ProductPage from './pages/ProductPage'
 import CheckOut from './pages/CheckOut'
 import Cart from './pages/Cart'
+import ConfirmPayment from './pages/ConfirmPayment'
+import Orders from './pages/Orders'
 
 export default function App() {
 
@@ -60,7 +62,9 @@ export default function App() {
 
             <Route path="/checkout" element={<CheckOut/>} />
 
-            <Route path="/" element={<Home/>} />
+            <Route path="/orders" element={<Orders/>} />
+
+            <Route path="/confirm-payment/:CheckoutRequestID/:orderId" element={<ConfirmPayment/>}/>
           
           </Route>
 
