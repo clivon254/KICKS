@@ -82,7 +82,7 @@ export default function Footer() {
             </div>
 
             {/* news letter */}
-            <div className="w-full space-y-3 col-span-2">
+            <div className="w-full space-y-3 lg:col-span-2">
 
                 <h3 className="text-base font-semibold">Join Our Newsletter Now</h3>
 

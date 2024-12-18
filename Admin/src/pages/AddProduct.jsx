@@ -17,7 +17,7 @@ import 'react-quill/dist/quill.snow.css';
 
 export default function AddProduct() {
 
-  const {url ,token} = useContext(StoreContext)
+  const {url ,token,fetchProducts} = useContext(StoreContext)
 
   const [files ,setFiles] = useState([])
 
@@ -187,11 +187,13 @@ export default function AddProduct() {
       {
         setLoading(false)
 
-        toast.success(`${res.data.newProduct.name} is added `)
+        toast.success(`${res.data.message}`)
 
         navigate('/products')
 
         setFormData({})
+
+        fetchProducts()
 
       }
 

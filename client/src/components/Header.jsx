@@ -4,7 +4,7 @@ import React, { useContext } from 'react'
 import Logo from './Logo'
 import { useDispatch, useSelector } from 'react-redux'
 import { Avatar, Dropdown } from "flowbite-react"
-import { Link, NavLink } from 'react-router-dom'
+import { Link, NavLink, useNavigate } from 'react-router-dom'
 import { FaRegUser, FaUserAlt } from "react-icons/fa"
 import { signOutSuccess } from '../redux/user/userSlice'
 import { toast } from 'sonner'
@@ -18,11 +18,13 @@ import { IoSearch } from "react-icons/io5";
 
 export default function Header() {
 
-  const {cartAmount, open ,setOpen,Navlinks} = useContext(StoreContext)
+  const {cartNumber, open ,setOpen,Navlinks} = useContext(StoreContext)
 
   const {currentUser} = useSelector(state => state.user)
   
   const dispatch = useDispatch()
+
+  const navigate = useNavigate()
 
 
   // handleDelete
@@ -41,10 +43,10 @@ export default function Header() {
     <>
 
       {/* Header */}
-      <header className="p-5 space-y-3 border-b border-secondary">
+      <header className="p-5 space-y-5 border-b border-zinc-300">
 
         {/* upper */}
-        <div className="flex items-center justify-between lg:border-b border-zinc-200 pb-3">
+        <div className="flex items-center justify-between lg:border-b secondary pb-5">
 
           {/* toggle menu */}
           <div className="lg:hidden flex items-center gap-x-2 r">
@@ -161,7 +163,10 @@ export default function Header() {
             }
 
             {/* cart */}
-            <div className="relative">
+            <div 
+              className="relative"
+              onClick={() => navigate('/cart')}
+            >
 
               <MdShoppingBag
                 size={30} 
@@ -169,7 +174,7 @@ export default function Header() {
               />
 
               <span className="absolute -right-3 -top-2 flex items-center justify-center h-6 w-6 bg-primary text-white rounded-full">
-                {cartAmount || 0}
+                {cartNumber || 0}
               </span>
 
             </div>
@@ -202,7 +207,7 @@ export default function Header() {
       </header>
 
       {/* drawer */}
-      <div className={`w-full h-full  fixed top-0  bg-black/50 backdrop-blur-sm  origin-right transition-all  duration-200 ease-in  lg:hidden ${open ? "left-0" :"left-[-100%]"}`}>
+      <div className={`w-full h-full  z-50 fixed top-0  bg-black/50 backdrop-blur-sm  origin-right transition-all  duration-200 ease-in  lg:hidden ${open ? "left-0" :"left-[-100%]"}`}>
 
         <div className="absolute  left-0 w-[50%] md:w-[35%] h-full bg-white space-y-3 p-3 ">
 

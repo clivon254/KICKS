@@ -9,6 +9,9 @@ import Home from './pages/Home'
 import Header from './components/Header'
 import Footer from './components/Footer'
 import { Toaster } from 'sonner'
+import ProductPage from './pages/ProductPage'
+import CheckOut from './pages/CheckOut'
+import Cart from './pages/Cart'
 
 export default function App() {
 
@@ -48,6 +51,14 @@ export default function App() {
         <Routes>
 
           <Route element={<Layout/>}>
+
+            <Route path="/" element={<Home/>} />
+
+            <Route path="/product/:productId" element={<ProductPage/>} />
+
+            <Route path="/cart" element={<Cart/>} />
+
+            <Route path="/checkout" element={<CheckOut/>} />
 
             <Route path="/" element={<Home/>} />
           
