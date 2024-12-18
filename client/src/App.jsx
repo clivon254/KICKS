@@ -8,6 +8,7 @@ import ForgotPassword from './pages/ForgotPassword'
 import Home from './pages/Home'
 import Header from './components/Header'
 import Footer from './components/Footer'
+import { Toaster } from 'sonner'
 
 export default function App() {
 
@@ -41,6 +42,8 @@ export default function App() {
    <BrowserRouter>
 
       <main className="min-h-screen">
+
+        <Toaster richColors/>
 
         <Routes>
 

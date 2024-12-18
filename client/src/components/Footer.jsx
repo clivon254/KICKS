@@ -8,7 +8,7 @@ export default function Footer() {
 
     <footer className="w-full  p-5 bg-secondary text-sm">
 
-        <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-3 gap-y-5">
+        <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-x-3 gap-y-5">
 
             {/* contact us */}
             <div className="space-y-2">
@@ -82,7 +82,7 @@ export default function Footer() {
             </div>
 
             {/* news letter */}
-            <div className="w-full space-y-3">
+            <div className="w-full space-y-3 col-span-2">
 
                 <h3 className="text-base font-semibold">Join Our Newsletter Now</h3>
 

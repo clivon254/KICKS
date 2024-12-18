@@ -27,7 +27,7 @@
 
 .btn
 {
-    @apply bg-blue-800 py-3 px-2 text-white text-base disabled:opacity-70
+    @apply bg-primary py-3 px-2 text-white text-base disabled:opacity-70
 }
 
 .btn2
@@ -96,4 +96,19 @@
 .quantity
 {
     @apply flex items-center justify-center border border-black text-base text-black h-8 w-8 font-bold
+}
+
+/* active */
+.active-nav-link
+{
+    @apply text-sm uppercase font-semibold text-primary relative inline-block 
+    after:bottom-2 after:origin-left after:content-[''] after:absolute after:w-[100%]
+    after:scale-x-0 after:duration-75 after:hover:scale-100 after:active:scale-100
+    after:bg-primary
+
+}
+
+.active-nav
+{
+    @apply text-sm uppercase font-semibold text-zinc-500
 }

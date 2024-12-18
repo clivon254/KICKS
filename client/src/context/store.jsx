@@ -9,6 +9,33 @@ export default function StoreContextProvider (props){
 
     const url = "http://localhost:1500"
 
+    const Navlinks = [
+        {
+            title:"Home",
+            path:"/"
+        },
+        {
+            title:"KICKS CATALOGUE",
+            path:"/catalohue"
+        },
+        {
+            title:"MEN",
+            path:"/men"
+        },
+        {
+            title:"WOMEN",
+            path:"/women"
+        },
+        {
+            title:"KIDS",
+            path:"/men"
+        },
+        {
+            title:"ABOUT US",
+            path:"/about"
+        }
+    ]
+
     const [token ,setToken] = useState(localStorage.getItem("token"))
 
     const [open ,setOpen] = useState(false)
@@ -277,6 +304,7 @@ export default function StoreContextProvider (props){
 
     const contextValue = {
         url,
+        Navlinks,
         token,setToken,
         open,setOpen,
         cartItems,setCartItems,

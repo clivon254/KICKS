@@ -6,6 +6,7 @@ import axios from "axios"
 import { StoreContext } from '../context/store'
 import {toast} from "sonner"
 import {Alert} from "flowbite-react"
+import Logo from '../components/Logo'
 
 
 export default function ForgotPassword() {
@@ -90,7 +91,11 @@ export default function ForgotPassword() {
       <div className="w-full max-w-xl mx-auto">
 
         {/* logo */}
-        <div className=""></div>
+        <div className="flex justify-center items-center">
+
+          <Logo/>
+          
+        </div>
 
         {/* form */}
         <div className="space-y-10">
