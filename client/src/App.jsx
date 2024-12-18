@@ -14,6 +14,7 @@ import CheckOut from './pages/CheckOut'
 import Cart from './pages/Cart'
 import ConfirmPayment from './pages/ConfirmPayment'
 import Orders from './pages/Orders'
+import SignUp from './pages/SignUp'
 
 export default function App() {
 
@@ -70,7 +71,7 @@ export default function App() {
 
           <Route path="/sign-in" element={<SignIn/>} />
 
-          <Route path="/sign-up" element={<SignIn/>} />
+          <Route path="/sign-up" element={<SignUp/>} />
 
           <Route path="/forgot-password" element={<ForgotPassword/>} />
 

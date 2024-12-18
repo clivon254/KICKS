@@ -13,11 +13,13 @@ import Logo from '../components/Logo'
 import Divider from '../components/Divider'
 import OAuth from '../components/OAuth'
 
-export default function SignIn() {
+export default function SignUp() {
 
   const {url,token,setToken} = useContext(StoreContext)
 
-  const {loading,error} = useSelector(state => state.user)
+  const [loading ,setLoading] = useState(false)
+
+  const [error ,setError] = useState(null)
 
   const [formData, setFormData] = useState({})
 
@@ -42,13 +44,15 @@ export default function SignIn() {
 
     try
     {
-      dispatch(signInUserStart())
-
-      const res = await axios.post(url + "/api/auth/sign-in",formData)
+     
+        setLoading(true)
+    
+      const res = await axios.post(url + "/api/auth/sign-up",formData)
 
       if(res.data.success)
       {
-        dispatch(signInUserSuccess(res.data.rest))
+        
+        setLoading(false)
 
         toast.success("You ave signed in successfully")
 
@@ -56,7 +60,7 @@ export default function SignIn() {
 
         localStorage.setItem("token", res.data.token)
         
-        navigate('/')
+        navigate('/sign-in')
       }
 
     }
@@ -66,12 +70,16 @@ export default function SignIn() {
       {
         const errorMessage = error.response.data.message 
 
-        dispatch(signInUserFailure(errorMessage))
+        setError(errorMessage)
+
+        setLoading(false)
 
       }
       else
       {
-        dispatch(signInUserFailure(error.message))
+        setError(error.message)
+
+        setLoading(false)
       }
     }
 
@@ -93,9 +101,24 @@ export default function SignIn() {
         {/* form */}
         <div className="space-y-10">
 
-          <h1 className="title3 text-center font-title">Sign in </h1>
+          <h1 className="title3 text-center font-title">Sign Up</h1>
 
           <form onSubmit={handleSubmit} className="space-y-5">
+            
+            <div className="flex flex-col gap-y-2">
+
+              <label htmlFor="" className="label">Username</label>
+
+              <input 
+                  type="text" 
+                  className="input" 
+                  placeholder="username"
+                  name="username"
+                  value={formData.username}
+                  onChange={handleChange}
+              />
+
+            </div>
 
             <div className="flex flex-col gap-y-2">
 
@@ -140,7 +163,7 @@ export default function SignIn() {
                 </div>
               ) 
               : 
-              ("sign in")
+              ("sign up")
              }
             </button>
 
@@ -157,7 +180,7 @@ export default function SignIn() {
               <span className="text-xs font-semibold">
 
                 <Link to="/sign-up">
-                  Dont have an account?
+                  Already have an account?
                 </Link>
 
               </span>
