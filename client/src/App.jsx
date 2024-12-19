@@ -15,6 +15,7 @@ import Cart from './pages/Cart'
 import ConfirmPayment from './pages/ConfirmPayment'
 import Orders from './pages/Orders'
 import SignUp from './pages/SignUp'
+import Profile from './pages/Profile'
 
 export default function App() {
 
@@ -66,7 +67,9 @@ export default function App() {
             <Route path="/orders" element={<Orders/>} />
 
             <Route path="/confirm-payment/:CheckoutRequestID/:orderId" element={<ConfirmPayment/>}/>
-          
+
+            <Route path="/profile" element={<Profile/>} />
+
           </Route>
 
           <Route path="/sign-in" element={<SignIn/>} />

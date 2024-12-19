@@ -24,7 +24,7 @@ import { MdChevronLeft, MdChevronRight } from "react-icons/md"
 
 export default function ProductPage() {
 
-    const {url ,token ,products} = useContext(StoreContext)
+    const {url ,token ,products,getCart} = useContext(StoreContext)
 
     const {currentUser} = useSelector(state => state.user)
 
@@ -133,7 +133,7 @@ export default function ProductPage() {
             {
                 toast.success(`${res.data.message}`)
 
-                fetchCart()
+                getCart()
 
                 setCartLoading(false)
             }

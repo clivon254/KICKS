@@ -14,7 +14,7 @@ import { FcGoogle } from "react-icons/fc"
 
 export default function OAuth() {
 
-    const {url,token,setToken,fetchCart} = useContext(StoreContext)
+    const {url,token,setToken,getCart} = useContext(StoreContext)
 
     const auth = getAuth(app)
 
@@ -45,13 +45,15 @@ export default function OAuth() {
             {
                 dispatch(signInUserSuccess(res.data.rest))
 
-                localStorage.setItem("token" ,res.data.rest.token)
+                localStorage.setItem("token" ,res.data.token)
+
+                setToken(res.data.token)
 
                 navigate('/')
 
                 toast.success("You have signed in successfully")
 
-                fetchCart()
+                getCart()
             }
 
         }

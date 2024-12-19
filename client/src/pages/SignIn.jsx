@@ -13,9 +13,10 @@ import Logo from '../components/Logo'
 import Divider from '../components/Divider'
 import OAuth from '../components/OAuth'
 
+
 export default function SignIn() {
 
-  const {url,token,setToken} = useContext(StoreContext)
+  const {url,token,setToken,getCart} = useContext(StoreContext)
 
   const {loading,error} = useSelector(state => state.user)
 
@@ -57,6 +58,8 @@ export default function SignIn() {
         localStorage.setItem("token", res.data.token)
         
         navigate('/')
+
+        getCart()
       }
 
     }

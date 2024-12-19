@@ -101,7 +101,7 @@
 /* active */
 .active-nav-link
 {
-    @apply text-sm uppercase font-semibold text-primary relative inline-block 
+    @apply text-sm uppercase font-bold text-primary relative inline-block 
     after:bottom-2 after:origin-left after:content-[''] after:absolute after:w-[100%]
     after:scale-x-0 after:duration-75 after:hover:scale-100 after:active:scale-100
     after:bg-primary
@@ -110,5 +110,5 @@
 
 .active-nav
 {
-    @apply text-sm uppercase font-semibold text-zinc-500
+    @apply text-sm uppercase font-bold text-zinc-500
 }

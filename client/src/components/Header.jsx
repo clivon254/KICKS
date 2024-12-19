@@ -1,6 +1,6 @@
 
 
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import Logo from './Logo'
 import { useDispatch, useSelector } from 'react-redux'
 import { Avatar, Dropdown } from "flowbite-react"
@@ -8,7 +8,7 @@ import { Link, NavLink, useNavigate } from 'react-router-dom'
 import { FaRegUser, FaUserAlt } from "react-icons/fa"
 import { signOutSuccess } from '../redux/user/userSlice'
 import { toast } from 'sonner'
-import { MdClose, MdShoppingBag } from "react-icons/md"
+import { MdChevronLeft, MdClose, MdShoppingBag } from "react-icons/md"
 import { StoreContext } from '../context/store'
 import { BiMenuAltLeft } from "react-icons/bi";
 import { IoClose } from "react-icons/io5";
@@ -18,7 +18,7 @@ import { IoSearch } from "react-icons/io5";
 
 export default function Header() {
 
-  const {cartNumber, open ,setOpen,Navlinks} = useContext(StoreContext)
+  const {cartNumber, open ,setOpen,Navlinks,products,getCart} = useContext(StoreContext)
 
   const {currentUser} = useSelector(state => state.user)
   
@@ -27,8 +27,8 @@ export default function Header() {
   const navigate = useNavigate()
 
 
-  // handleDelete
-  const handleDelete = () => {
+  // handleSignout
+  const handleSignout = () => {
 
     dispatch(signOutSuccess())
 
@@ -36,6 +36,29 @@ export default function Header() {
 
     toast.success("You have signed out")
     
+    navigate('/')
+
+    getCart()
+    
+  }
+
+  const [searchOpen ,setSearchOpen] = useState(false)
+
+  const [searchInput , setSearchInput] = useState("")
+
+  const [filterProducts , setFilterProducts] = useState(products)
+
+  // handleSearch
+  const handleSearch = (e) => {
+
+    const searchTerm = e.target.value
+
+    setSearchInput(searchTerm)
+
+    const filtered = products.filter((product) => product.name.toLowerCase().includes(searchTerm.toLowerCase()));
+
+    setFilterProducts(filtered)
+
   }
 
   return (
@@ -73,7 +96,10 @@ export default function Header() {
             </span>
             
             <span className="">
-              <IoSearch size={30}/>
+              <IoSearch 
+                  size={30}
+                  onClick={() => setSearchOpen(true)}
+              />
             </span>
 
           </div>
@@ -138,7 +164,7 @@ export default function Header() {
                   </Link>
 
                   <Dropdown.Item
-                    onClick={() => handleDelete()}
+                    onClick={() => handleSignout()}
                   >
                     Sign Out
                   </Dropdown.Item>
@@ -241,8 +267,134 @@ export default function Header() {
 
       </div>
 
-      {/* search bar */}
-      <div className=""></div>
+      {searchOpen && (
+
+        <>
+
+            {/* search bar */}
+            <div className="w-full h-screen z-50 fixed bg-black/30 top-0 backdrop-blur-sm lg:hidden flex flex-col">
+
+              <div className="w-full bg-gray-200 p-5 flex items-center justify-center gap-x-5">
+
+                <span className="">
+                  <MdChevronLeft 
+                    size={32}
+                    onClick={() => setSearchOpen(false)}
+                  />
+                </span>
+
+                {/* input */}
+                <div className="w-[80%] relative  border border-zinc-600 ">
+
+                  <input 
+                    type="text" 
+                    className="w-full" 
+                    placeholder='what do you need ? . . . .'
+                    value={searchInput}
+                    onChange={handleSearch}
+                  />
+                  
+                  <button className="absolute right-0 inset-y-0 grid place-content-center bg-secondary p-2">
+
+                    <IoSearch
+                      size={24}
+                      className=""
+                    />
+
+                  </button>
+
+                </div>
+
+              </div>
+
+              {searchInput && (
+
+                <div className="w-full bg-white flex-1 p-2">
+
+                  <div className="space-y-4">
+
+                    {filterProducts.length > 0 ? (
+
+                      <>
+
+                        {filterProducts.map((product,index) => (
+
+                          <div 
+                            key={index}
+                            className="flex items-center gap-x-5"
+                            onClick={() => {
+                              navigate(`/product/${product._id}`)
+                              setSearchOpen(false)
+                            }}
+                          >
+
+                            <Link to={`/product/${product._id}`}>
+                              
+                              <img 
+                                src={product?.images[0]}
+                                alt="" 
+                                className="h-16 w-16" 
+                              />
+
+                            </Link>
+
+                            <div className="flex flex-col gap-y-1">
+
+                                <span className="">{product?.name}</span>
+
+                                {product.discountPrice > 0 ? 
+                                (
+
+                                  <div className="flex items-center gap-x-2">
+
+                                    <span className="text-sm line-through text-gray-500">
+                                      {(product?.regularPrice)?.toLocaleString('en-KE', { style: 'currency', currency: 'KES' })}
+                                    </span>
+
+                                    <span className="text-base">
+                                      {(product?.discountPrice)?.toLocaleString('en-KE', { style: 'currency', currency: 'KES' })}
+                                    </span>
+
+                                  </div>
+
+                                  ) 
+                                  : 
+                                  (
+                                    <span className="">
+                                      {(product?.regularPrice)?.toLocaleString('en-KE', { style: 'currency', currency: 'KES' })}
+                                    </span>
+                                  )
+                                }
+
+                            </div>
+
+                          </div>
+
+                        ))}
+
+                      </>
+
+                    ) 
+                    : 
+                    (
+                      <p className="text-center text-xl font-semibold">
+                        Sorry "{searchInput}" not found  !!!
+                      </p>
+                    )
+                    }
+
+                  </div>
+
+                </div>
+
+              )}
+
+            </div>
+
+        </>
+
+      )}
+      
 
     </>
 
