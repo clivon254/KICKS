@@ -16,19 +16,15 @@ export default function StoreContextProvider (props){
         },
         {
             title:"KICKS CATALOGUE",
-            path:"/catalohue"
+            path:"/shop"
         },
         {
-            title:"MEN",
-            path:"/men"
+            title:"CONTACT ",
+            path:"/contact"
         },
         {
-            title:"WOMEN",
-            path:"/women"
-        },
-        {
-            title:"KIDS",
-            path:"/men"
+            title:"FAQS",
+            path:"/faq"
         },
         {
             title:"ABOUT US",

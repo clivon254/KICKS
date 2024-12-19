@@ -108,7 +108,7 @@ export default function Header() {
           <Logo/>
 
           {/* search */}
-          <div className="hidden lg:block bg-blue-100">
+          <div className="hidden lg:block bg-blue-100 ">
 
               <div className="text-center relative border border-zinc-800 w-[500px]">
 
@@ -116,6 +116,7 @@ export default function Header() {
                   type="text" 
                   className="border-none w-full" 
                   placeholder='what are you looking for?'
+                  onChange={handleSearch}
                 />
 
                 <button className="absolute inset-y-0 right-0 p-2 bg-secondary flex items-center justify-center">
@@ -123,6 +124,87 @@ export default function Header() {
                 </button>
 
               </div>
+
+              {searchInput && (
+
+                <div className="absolute w-[500px] max-h-[60vh] z-50 bg-slate-100 overflow-hidden  p-3">
+                  
+                  {filterProducts.length > 0 ? 
+                      (
+                        <>
+
+                            <div className="space-y-3">
+
+                              {filterProducts.map((product,index) => (
+
+                                    <div 
+                                      key={index}
+                                      className="flex items-center gap-x-5 border-b border-zinc-300 pb-3 cursor-pointer"
+                                      onClick={() => {
+                                        navigate(`/product/${product._id}`)
+                                        setSearchInput("")
+                                      }}
+                                    >
+
+                                      <Link to={`/product/${product._id}`}>
+                                        
+                                        <img 
+                                          src={product?.images[0]}
+                                          alt="" 
+                                          className="h-16 w-16" 
+                                        />
+
+                                      </Link>
+
+                                      <div className="flex flex-col gap-y-1">
+
+                                          <span className="font-semibold text-base">{product?.name}</span>
+
+                                          {product.discountPrice > 0 ? 
+                                            (
+
+                                            <div className="flex items-center gap-x-2 text-sm font-medium">
+
+                                              <span className="text-xs line-through text-gray-500">
+                                                {(product?.regularPrice)?.toLocaleString('en-KE', { style: 'currency', currency: 'KES' })}
+                                              </span>
+
+                                              <span className="">
+                                                {(product?.discountPrice)?.toLocaleString('en-KE', { style: 'currency', currency: 'KES' })}
+                                              </span>
+
+                                            </div>
+
+                                            ) 
+                                            : 
+                                            (
+                                              <span className="text-sm font-medium">
+                                                {(product?.regularPrice)?.toLocaleString('en-KE', { style: 'currency', currency: 'KES' })}
+                                              </span>
+                                            )
+                                          }
+
+                                      </div>
+
+                                    </div>
+
+                              ))}
+
+                            </div>
+
+                        </>
+                      ) 
+                      : 
+                      (
+                        <p className="">
+                          Sorry <span className="">"{searchInput}"</span> not found !!!!
+                        </p>
+                      )
+                  }
+
+                </div>
+
+              )}
 
           </div>
 

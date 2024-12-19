@@ -13,6 +13,7 @@ import ProductCard from '../components/ProductCard';
 
 import { MdChevronLeft, MdChevronRight } from "react-icons/md"
 import { StoreContext } from '../context/store';
+import OfferBanner from '../components/OfferBanner';
 
 
 
@@ -22,10 +23,10 @@ export default function Home() {
 
   return (
 
-   <section className="section">
+   <section className="">
 
     {/* new arrival */}
-    <div className="space-y-5 pb-16">
+    <div className="section space-y-5 ">
 
       {/* header */}
       <div className="flex justify-between items-center">
@@ -81,7 +82,7 @@ export default function Home() {
                   spaceBetween: 40,
                   },
                   1024: {
-                  slidesPerView: 5,
+                  slidesPerView: 4,
                   spaceBetween: 40,
                   },
               }} 
@@ -101,14 +102,15 @@ export default function Home() {
               ))}
           </Swiper>
 
-         
-
       </div>
 
     </div>
 
+    {/* OfferBanner */}
+    <OfferBanner/>
+
     {/*products on offer*/}
-    <div className="space-y-5 pb-16">
+    <div className="section space-y-5 ">
 
       {/* header */}
       <div className="flex justify-between items-center">
@@ -164,7 +166,7 @@ export default function Home() {
                   spaceBetween: 40,
                   },
                   1024: {
-                  slidesPerView: 5,
+                  slidesPerView: 4,
                   spaceBetween: 40,
                   },
               }} 
@@ -184,14 +186,12 @@ export default function Home() {
               ))}
           </Swiper>
 
-         
-
       </div>
 
     </div>
 
     {/* featured products */}
-    <div className="space-y-5 pb-16">
+    <div className="section space-y-5">
 
       {/* header */}
       <div className="flex justify-between items-center">
@@ -247,7 +247,7 @@ export default function Home() {
                   spaceBetween: 40,
                   },
                   1024: {
-                  slidesPerView: 5,
+                  slidesPerView: 4,
                   spaceBetween: 40,
                   },
               }} 

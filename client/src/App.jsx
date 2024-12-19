@@ -16,6 +16,10 @@ import ConfirmPayment from './pages/ConfirmPayment'
 import Orders from './pages/Orders'
 import SignUp from './pages/SignUp'
 import Profile from './pages/Profile'
+import Contact from './pages/Contact'
+import About from './pages/About'
+import FAQS from './pages/FAQS'
+import Shop from './pages/Shop'
 
 export default function App() {
 
@@ -57,6 +61,14 @@ export default function App() {
           <Route element={<Layout/>}>
 
             <Route path="/" element={<Home/>} />
+
+            <Route path="/contact" element={<Contact/>} />
+
+            <Route path="/about" element={<About/>} />
+
+            <Route path="/faq" element={<FAQS/>} />
+
+            <Route path="/shop" element={<Shop/>} />
 
             <Route path="/product/:productId" element={<ProductPage/>} />
 
