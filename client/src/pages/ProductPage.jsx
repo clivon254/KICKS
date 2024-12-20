@@ -145,13 +145,13 @@ export default function ProductPage() {
 
             if(error.response)
             {
-                setCartError(error.response)
+                setCartError(error.response.data.message)
 
                 console.log(error.response)
             }
             else
             {
-                setCartError(error.response)
+                setCartError(error.message)
             }
         }
 

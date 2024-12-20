@@ -73,14 +73,22 @@ export default function Cart() {
                 toast.success(`${res.data.message}`)
 
                 getCart()
-
+                
             }
 
         }
         catch(error)
         {
            
-            console.log(error.messsage)
+            if(error.response)
+            {
+                toast.error(error.response.data.message)
+            }
+            else
+            {
+                console.log(error.message)
+            }
+            
         }
 
     }

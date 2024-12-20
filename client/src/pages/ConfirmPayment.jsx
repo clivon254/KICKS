@@ -100,12 +100,21 @@ export default function ConfirmPayment() {
 
         setProcessingPayment(true)
 
+        const timeoutId = setTimeout(() => {
+
+            console.log('No event received , confirming payment ...')
+
+            confirmPayment()
+
+        },90000) //90 seconds until it expires
+
         eventSource.onmessage = (event) => {
+
+            clearTimeout(timeoutId) //clear timeout if an event is received
 
             const data = JSON.parse(event.data);
 
             console.log('Payment update received:', data);
-        
             
             if (data.success) 
             {
@@ -113,6 +122,10 @@ export default function ConfirmPayment() {
                 confirmPayment()
 
             } 
+            else
+            {
+                confirmPayment()
+            }
             
         };
 
@@ -122,7 +135,11 @@ export default function ConfirmPayment() {
 
         // Cleanup function to close the EventSource when the component unmounts
         return () => {
+
             eventSource.close();
+
+            clearTimeout(timeoutId)
+            
         };
 
     },[CheckoutRequestID,orderId])
@@ -137,7 +154,7 @@ export default function ConfirmPayment() {
 
             <div className="w-full h-[50vh] flex flex-col gap-y-3 items-center justify-center">
 
-                <div className="w-[90%] md:w-[70%] lg:w-[50%] 2xl:w-[40%] shadow-xl rounded-md flex flex-col items-center gap-y-3 p-5">
+                <div className="w-[90%] md:w-[70%] lg:w-[50%] 2xl:w-[40%] shadow-xl rounded-md flex flex-col items-center gap-y-3 p-5 border border-zinc-200">
 
                     <span className="">
 
@@ -169,7 +186,7 @@ export default function ConfirmPayment() {
 
             <div className="w-full h-[50vh] flex flex-col gap-y-3 items-center justify-center">
 
-                <div className="w-[90%] md:w-[70%] lg:w-[50%] 2xl:w-[40%] shadow-xl rounded-md flex flex-col items-center gap-y-3 p-5">
+                <div className="w-[90%] md:w-[70%] lg:w-[50%] 2xl:w-[40%] shadow-xl rounded-md flex flex-col items-center gap-y-3 p-5 border border-zinc-200">
 
                     <div className="flex items-center justify-center gap-x-3 text-sm font-semibold">
 
@@ -189,7 +206,7 @@ export default function ConfirmPayment() {
 
             <div className="w-full h-[50vh] flex flex-col gap-y-3 items-center justify-center">
 
-                <div className="w-[90%] md:w-[70%] lg:w-[50%] 2xl:w-[40%] shadow-xl rounded-md flex flex-col items-center gap-y-3 p-5">
+                <div className="w-[90%] md:w-[70%] lg:w-[50%] 2xl:w-[40%] shadow-xl rounded-md flex flex-col items-center gap-y-3 p-5 border border-zinc-200">
 
                     <span className="text-red-600">
 

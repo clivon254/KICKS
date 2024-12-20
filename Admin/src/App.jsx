@@ -54,7 +54,7 @@ function App() {
 
             </div>
 
-            <div className="w-full md:w-3/4">
+            <div className="w-full lg:w-3/4">
 
               <Outlet/>
 

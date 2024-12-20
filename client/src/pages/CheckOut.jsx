@@ -250,11 +250,24 @@ export default function CheckOut() {
                 }
                 catch(error)
                 {
-                    console.log(error.message)
+                    
+                    if(error.response)
+                    {
+                        setError(error.response.data.message)
 
-                    setError(error.message)
+                        setLoading(false)
 
-                    setLoading(false)
+                        console.log(error.response.data.message)
+                    }
+                    else
+                    {
+                        setError(error.message)
+
+                        setLoading(false)
+
+                        console.log(error.message)
+                    }
+                    
                 }
                 break;
             case 'COD':

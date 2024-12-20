@@ -5,7 +5,7 @@ import User from "../model/userModel.js"
 import Pay from "../model/payModel.js"
 import { errorHandler } from "../utils/error.js"
 import Product from "../model/productModel.js"
-
+import africastalking from "africastalking"
 
 
 let clients = []
@@ -150,9 +150,10 @@ export const callback  = async (req,res,next) => {
         {
             console.log(callbackData.Body)
 
-            console.log(orderId)
-
             await Order.findByIdAndDelete(orderId)
+
+             // send notification that the STK PUSH has been attended 
+            sendEventToClients({success:true ,message:'STK Ppush has been attend to'})
 
             res.json("ok")
         }
@@ -166,18 +167,7 @@ export const callback  = async (req,res,next) => {
 
             if(order)
             {
-
-                for(const item in order.items)
-                {
-                    const productId = item._id
-
-                    const quantity = item.quantity
-
-                    // find the product and reduce the instock
-                    await Product.findByIdAndUpdate(productId ,{$inc:{instock:-quantity}})
-
-                }
-
+                
                 await Order.findByIdAndUpdate(orderId ,{payment:true})
 
                 console.log("order updated")
@@ -218,12 +208,14 @@ export const callback  = async (req,res,next) => {
             })
 
             await pay.save()
+
+             // send notification that the STK PUSH has been attended 
+            sendEventToClients({success:true ,message:'STK Ppush has been attend to'})
             
             res.status(200).json({success:true , pay})
         }
 
-        // send notification that the STK PUSH has been attended 
-        sendEventToClients({success:true ,message:'STK Ppush has been attend to'})
+       
 
     }
     catch(error)
@@ -289,15 +281,31 @@ export const confirmPayment = async (req,res,next) => {
 
             if(order)
             {
+                console.log(order.items.length)
                 
-                for(const item in order.items)
+                for(const item of order.items)
                 {
                     const productId = item._id
 
-                    const quantity = item.quantity
+                    const quantity = Number(item.quantity) 
 
-                    // find the product and reduce the instock
-                    await Product.findByIdAndUpdate(productId ,{$inc:{instock:-quantity}})
+                    const product = await Product.findById(productId)
+                    
+                    console.log(productId)
+
+                    if(product)
+                    {
+                        product.instock -= quantity
+
+                        await product.save()
+                    }
+                    else
+                    {
+                        console.log("product not found")
+                    }
+
+
+                    // await Product.findByIdAndUpdate(productId, {$inc: {instock: -quantity}})
                     
                 }
 
@@ -310,8 +318,13 @@ export const confirmPayment = async (req,res,next) => {
                 console.log("cart cleared")
 
             }
+            else
+            {
+                console.log("order not found")
+            }
 
             res.status(200).json({success:true ,data:response.data , message:'Transaction was successfull'})
+
         }
         else
         {
