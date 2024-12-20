@@ -4,6 +4,40 @@ import axios from "axios"
 import User from "../model/userModel.js"
 import Pay from "../model/payModel.js"
 import { errorHandler } from "../utils/error.js"
+import Product from "../model/productModel.js"
+
+
+
+let clients = []
+
+
+
+export const events = (req,res) => {
+
+    res.setHeader('Content-Type', 'text/event-stream')
+
+    res.setHeader('Cache-Control', 'no-cache')
+
+    res.setHeader('Connection', 'keep-alive')
+
+    // Add the client to the list
+    clients.push(res)
+
+     // Remove the client when the connection is closed
+     req.on('close', () => {
+        clients = clients.filter(client => client !== res);
+    })
+
+}
+
+// send updates to connected clients
+const sendEventToClients = (data) => {
+
+    clients.forEach(client => {
+        client.write(`data: ${JSON.stringify(data)}\n\n`)
+    })
+
+}
 
 
 // mpesa
@@ -128,14 +162,31 @@ export const callback  = async (req,res,next) => {
 
             console.log(body)
 
-            await Order.findByIdAndUpdate(orderId ,{payment:true})
+            const order = await Order.findById(orderId)
 
-            console.log("order updated")
+            if(order)
+            {
 
-            await User.findByIdAndUpdate(userId ,{cartData:{}})
+                for(const item in order.items)
+                {
+                    const productId = item._id
 
-            console.log("cart cleared")
+                    const quantity = item.quantity
 
+                    // find the product and reduce the instock
+                    await Product.findByIdAndUpdate(productId ,{$inc:{instock:-quantity}})
+
+                }
+
+                await Order.findByIdAndUpdate(orderId ,{payment:true})
+
+                console.log("order updated")
+
+                await User.findByIdAndUpdate(userId ,{cartData:{}})
+
+                console.log("cart cleared")
+
+            }
 
             // Get amount
             const amountObj = body.Item.find(obj => obj.Name === 'Amount');
@@ -170,6 +221,9 @@ export const callback  = async (req,res,next) => {
             
             res.status(200).json({success:true , pay})
         }
+
+        // send notification that the STK PUSH has been attended 
+        sendEventToClients({success:true ,message:'STK Ppush has been attend to'})
 
     }
     catch(error)
@@ -231,9 +285,31 @@ export const confirmPayment = async (req,res,next) => {
 
         if(response.data.ResultCode === "0")
         {
-            await Order.findByIdAndUpdate(orderId,{payment:true})
-            
-            await User.findByIdAndUpdate(userId ,{cartData:{}})
+            const order = await Order.findById(orderId)
+
+            if(order)
+            {
+                
+                for(const item in order.items)
+                {
+                    const productId = item._id
+
+                    const quantity = item.quantity
+
+                    // find the product and reduce the instock
+                    await Product.findByIdAndUpdate(productId ,{$inc:{instock:-quantity}})
+                    
+                }
+
+                await Order.findByIdAndUpdate(orderId ,{payment:true})
+
+                console.log("order updated")
+
+                await User.findByIdAndUpdate(userId ,{cartData:{}})
+
+                console.log("cart cleared")
+
+            }
 
             res.status(200).json({success:true ,data:response.data , message:'Transaction was successfull'})
         }

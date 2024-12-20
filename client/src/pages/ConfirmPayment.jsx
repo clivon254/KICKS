@@ -21,90 +21,113 @@ export default function ConfirmPayment() {
 
     const {CheckoutRequestID ,orderId} = useParams()
 
-    useEffect(() => {
+
+    const confirmPayment = async () => { 
 
         setProcessingPayment(true)
 
-        const confirmPayment = async () => {
+        try
+        {
+            const res = await axios.post(url + `/api/order/confirm-payment/${CheckoutRequestID}/${orderId}`,{},{headers:{token}})
 
-            setProcessingPayment(true)
-
-            try
+            if(res.data.success)
             {
-                const res = await axios.post(url + `/api/order/confirm-payment/${CheckoutRequestID}/${orderId}`,{},{headers:{token}})
 
-                if(res.data.success)
+                if(res.data.data.ResultCode === "0")
                 {
+                    setPaymentError(false)
 
-                    if(res.data.data.ResultCode === "0")
-                    {
-                        setPaymentError(false)
+                    setProcessingPayment(false)
 
-                        setProcessingPayment(false)
+                    setPaymentSuccess(true)
 
-                        setPaymentSuccess(true)
-
-                        setMessage(res.data.message)
-                    }
-                    else
-                    {
-                        setPaymentError(true)
-
-                        setProcessingPayment(false)
-
-                        setPaymentSuccess(false)
-
-                        setMessage(res.data.message)
-                    }
-
-                }
-        
-
-                getCart()
-            }
-            catch(error)
-            {
-                if(error.response)
-                {
-                    const errorMessage = error.response.data.message
-                    
-                    setPaymentError(true)
-
-                    console.log(errorMessage)
-
-                    setPaymentSuccess(false)
-
-                    setMessage(errorMessage)
-
+                    setMessage(res.data.message)
                 }
                 else
                 {
                     setPaymentError(true)
 
-                    console.log(error.message)
+                    setProcessingPayment(false)
 
                     setPaymentSuccess(false)
 
-                    setMessage(error.Message)
+                    setMessage(res.data.message)
                 }
-                
-            }
-            finally
-            {
-                setProcessingPayment(false)
-            }
 
+            }
+    
+            getCart()
+        }
+        catch(error)
+        {
+
+            if(error.response)
+            {
+                const errorMessage = error.response.data.message
+                
+                setPaymentError(true)
+
+                console.log(errorMessage)
+
+                setPaymentSuccess(false)
+
+                setMessage(errorMessage)
+
+            }
+            else
+            {
+                setPaymentError(true)
+
+                console.log(error.message)
+
+                setPaymentSuccess(false)
+
+                setMessage(error.Message)
+            }
+            
+        }
+        finally
+        {
+            setProcessingPayment(false)
         }
 
-        const timeoutId = setTimeout(() => {
+    }
 
-            confirmPayment()
+    useEffect(() => {
 
-        },45000)
+        // front-end listen for Server-sent Events
+        const eventSource = new EventSource(url + "/api/order/event")
 
-        return () => clearTimeout(timeoutId)
+        setProcessingPayment(true)
+
+        eventSource.onmessage = (event) => {
+
+            const data = JSON.parse(event.data);
+
+            console.log('Payment update received:', data);
+        
+            
+            if (data.success) 
+            {
+                
+                confirmPayment()
+
+            } 
+            
+        };
+
+        eventSource.onerror = (error) => {
+             console.error('EventSource failed:', error);
+        };
+
+        // Cleanup function to close the EventSource when the component unmounts
+        return () => {
+            eventSource.close();
+        };
 
     },[CheckoutRequestID,orderId])
+
+
 
   return (
 

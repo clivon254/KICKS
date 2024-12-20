@@ -2,7 +2,7 @@
 
 import express from "express"
 import { generateAccessToken, verifyToken } from "../utils/verify.js"
-import { adminOrders, callback, COD, confirmPayment, deleteOrder, mpesa, updateStatus, userOrders } from "../controller/orderController.js"
+import { adminOrders, callback, COD, confirmPayment, deleteOrder, events, mpesa, updateStatus, userOrders } from "../controller/orderController.js"
 
 
 
@@ -14,6 +14,9 @@ orderRouter.post("/mpesa" ,verifyToken ,generateAccessToken, mpesa)
 
 
 orderRouter.post('/callback' , callback)
+
+
+orderRouter.get('/event' , events)
 
 
 orderRouter.post('/confirm-payment/:CheckoutRequestID/:orderId' , verifyToken, generateAccessToken, confirmPayment)

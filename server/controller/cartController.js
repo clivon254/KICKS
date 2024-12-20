@@ -29,6 +29,32 @@ export const addToCart = async (req,res,next) => {
         
         let cartData = await userData.cartData 
 
+       // Determine the current quantity in the cart
+        let currentQuantity = 0;
+
+        
+        if (size && color) 
+        {
+            currentQuantity = cartData[itemId]?.[size]?.[color] || 0;
+        }
+         else if (size) 
+        {
+            currentQuantity = cartData[itemId]?.[size] || 0;
+        } 
+        else if (color) 
+        {
+            currentQuantity = cartData[itemId]?.[color] || 0;
+        } 
+        else 
+        {
+            currentQuantity = cartData[itemId] || 0;
+        }
+
+        if (currentQuantity + 1 > product.instock) 
+        {
+            return next(errorHandler(400, "Cannot add more than available stock"));
+        }
+
         if(size && color)
         {
             if(!cartData[itemId])
@@ -98,6 +124,7 @@ export const addToCart = async (req,res,next) => {
         await User.findByIdAndUpdate(userId ,{cartData})
 
         res.status(200).json({success:true ,message:`${product.name} is added`})
+        
     }
     catch(error)
     {
