@@ -9,7 +9,7 @@ export default function ProductCard({product}) {
 
     <div>
 
-        <div className="h-[250px] w-full">
+        <div className="h-[250px] md:h-[280px] lg:h-[280px] md w-full">
 
             <Link to={`/product/${product._id}`}>
 
@@ -25,9 +25,9 @@ export default function ProductCard({product}) {
 
         <div className="">
 
-            <span className="text-center">{product.name}</span>
+            <span className="text-center text-base font-semibold hover:underline">{product.name}</span>
 
-            <div className="text-sm">
+            <div className="text-sm text-gray-600">
 
                 {product.discountPrice > 0 ?
                 (
@@ -37,7 +37,7 @@ export default function ProductCard({product}) {
                             {(product.regularPrice).toLocaleString('en-KE', { style: 'currency', currency: 'KES' })}
                         </span>
 
-                        <span className="">
+                        <span className="font-semibold">
                             {(product.discountPrice).toLocaleString('en-KE', { style: 'currency', currency: 'KES' })}
                         </span>
 
@@ -45,7 +45,7 @@ export default function ProductCard({product}) {
                 ) 
                 :
                 (
-                    <span className="">
+                    <span className="font-semibold">
                         {(product.regularPrice).toLocaleString('en-KE', { style: 'currency', currency: 'KES' })}
                     </span>
                 )}

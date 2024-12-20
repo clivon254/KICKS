@@ -12,7 +12,7 @@ export default function OfferBanner() {
   return (
 
     <div 
-        className="h-[60vh] sm:h-[65vh] md:h-[70vh]  lg:h-[75vh] grid place-content-center"
+        className="h-[50vh] sm:h-[60vh] lg:h-[70vh] grid place-content-center"
         style={{
             backgroundImage: `url(${Banner})`,
             backgroundSize: 'cover',

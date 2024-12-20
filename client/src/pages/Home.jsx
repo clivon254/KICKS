@@ -31,9 +31,9 @@ export default function Home() {
       {/* header */}
       <div className="flex justify-between items-center">
         
-        <h2 className="title2">New Arrival</h2>
+        <h2 className="title2 ">New Arrival</h2>
 
-        <div className="flex items-center gap-x-2">
+        <div className="flex flex-col items-center gap-y-1 gap-x-2">
 
           <span className="text-xs font-semibold">show more</span>
 
@@ -117,7 +117,7 @@ export default function Home() {
         
         <h2 className="title2">Get our offers</h2>
         
-        <div className="flex items-center gap-x-2">
+        <div className="flex items-center flex-col gap-y-1">
             
           <span className="text-xs font-semibold">show more</span>
 
@@ -198,7 +198,7 @@ export default function Home() {
         
         <h2 className="title2">Featured Products</h2>
 
-        <div className="flex items-center gap-x-2">
+        <div className="flex flex-col items-center gap-y-1 gap-x-2">
 
           <span className="text-xs font-semibold">show more</span>
 

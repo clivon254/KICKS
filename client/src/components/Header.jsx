@@ -335,6 +335,7 @@ export default function Header() {
 
                       <NavLink 
                         key={index}
+                        onClick={() => setOpen(false)}
                         to={`${nav.path}`}
                         className={({isActive}) => isActive ? "active-nav-link" : "active-nav"}
                       >
