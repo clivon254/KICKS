@@ -12,6 +12,12 @@ import orderRouter from "./router/orderRouter.js"
 import couponRouter from "./router/couponRouter.js"
 import reveiwRouter from "./router/reveiwRouter.js"
 import subscribeRouter from "./router/subscribeRouter.js"
+import brandRouter from "./router/brandRouter.js"
+import categoryRouter from "./router/categoryRouter.js"
+import sizeRouter from "./router/sizeRouter.js"
+import colorRouter from "./router/colorRouter.js"
+
+
 
 
 const app = express()
@@ -55,6 +61,20 @@ app.use("/api/reveiw" , reveiwRouter)
 
 
 app.use("/api/subscribe" , subscribeRouter)
+
+
+app.use("/api/brand" , brandRouter)
+
+
+app.use("/api/category" , categoryRouter)
+
+
+app.use("/api/size" , sizeRouter)
+
+
+app.use("/api/color" , colorRouter)
+
+
 
 
 

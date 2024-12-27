@@ -361,23 +361,43 @@ export default function ProductPage() {
 
                         {/* buttons */}
                         <div className="flex flex-col gap-y-3">
+                            
+                            {product.instock > 0 ? 
+                            (
+
+                                <button 
+                                    className="btn"
+                                    onClick={() => addToCart()}
+                                    disabled={cartLoading}
+                                >
+                                    {cartLoading ? 
+                                    (
+                                        <div className="flex justify-center items-center">
+                                            <span className="loading"/>
+                                        </div>
+                                    ) 
+                                    : 
+                                    ("ADD TO CART")}
+                                </button>
+
+                            ) 
+                            : 
+                            (
+
+                                <button 
+                                    className="btn"
+                                    onClick={() => addToCart()}
+                                    disabled={product.instock < 1}
+                                >
+                                    OUT OF STOCK
+                                </button>
+
+                            )}
 
                             <button 
-                                className="btn"
-                                onClick={() => addToCart()}
-                                disabled={cartLoading}
+                                className="btn2"
+                                disabled={product.instock < 1}
                             >
-                                {cartLoading ? 
-                                (
-                                    <div className="flex justify-center items-center">
-                                        <span className="loading"/>
-                                    </div>
-                                ) 
-                                : 
-                                ("ADD TO CART")}
-                            </button>
-
-                            <button className="btn2">
                                 BUY NOW
                             </button>
 

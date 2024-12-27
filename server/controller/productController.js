@@ -1,9 +1,43 @@
 
 
+import Brand from "../model/brandModel.js"
+import Category from "../model/categoryModel.js"
+import Color from "../model/colorModel.js"
 import Product from "../model/productModel.js"
+import Size from "../model/sizeModel.js"
 import { errorHandler } from "../utils/error.js"
 
 
+export const stats = async (req,res,next) => {
+
+    
+    try
+    {
+        const {query} = req.query
+
+        const numofDays = Number(query) || 28
+
+        const currentDate = new Date()
+
+        const startDate = new Date()
+
+        startDate.setDate(currentDate.getDate() - numofDays)
+
+        const totalProdocts = await Product.find({}).countDocuments()
+
+        const outOfStock = await Product.find({instock: {$lt:1}})
+
+        
+    }
+    catch(error)
+    {
+        next(error)
+    }
+
+}
+
+
+// PRODUCTS
 
 export const createProduct = async (req,res,next) => {
 
@@ -145,26 +179,27 @@ export const deleteProduct = async (req,res,next) => {
 }
 
 
-export const stats = async (req,res,next) => {
+// BRAND
 
-    
+export const createBrand = async (req,res,next) => {
+
+    if(!req.user.isAdmin)
+    {
+        return next(errorHandler(403,"you are not allowed to create a brand"))
+    }
+
+    const {brand} = req.body
+
     try
     {
-        const {query} = req.query
+        const newBrand = new Brand({
+            brand
+        })
 
-        const numofDays = Number(query) || 28
+        await newBrand.save()
 
-        const currentDate = new Date()
+        res.status(200).json({success:true , message:`${newBrand.name} brand added successffully`})
 
-        const startDate = new Date()
-
-        startDate.setDate(currentDate.getDate() - numofDays)
-
-        const totalProdocts = await Product.find({}).countDocuments()
-
-        const outOfStock = await Product.find({instock: {$lt:1}})
-
-        
     }
     catch(error)
     {
@@ -172,3 +207,541 @@ export const stats = async (req,res,next) => {
     }
 
 }
+
+
+export const getBrand = async (req,res,next) => {
+
+    const {brandId} = req.params
+
+    try
+    {
+        const brand = await Brand.findById(brandId)
+
+        if(!brand)
+        {
+            return next(errorHandler(404,"brand not found"))
+        }
+
+        res.status(200).json({success:true , brand})
+
+    }
+    catch(error)
+    {
+        next(error)
+    }
+
+}
+
+
+export const getBrands = async (req,res,next) => {
+
+    try
+    {
+        const brands = await Brand.find({}).sort({_id:-1})
+
+        res.status(200).json({success:true , brands})
+
+    }
+    catch(error)
+    {
+        next(error)
+    }
+
+}
+
+
+export const updateBrand = async (req,res,next) => {
+
+    if(!req.user.isAdmin)
+    {
+        return next(errorHandler(403,"you are not allowed to update this brand"))
+    }
+
+    const {brandId}  = req.params
+
+    const brand = await Brand.findById(brandId)
+
+    if(!brand)
+    {
+        return next(errorHandler(404,"brand not found"))
+    }
+
+    try
+    {
+
+        const updatedBrand = await Brand.findByIdAndUpdate(
+            brandId,
+            { 
+                $set:{
+                    name:req.body.name
+                }
+            }
+            ,
+            {new:true}
+        )
+
+        res.status(200).json({success:true ,  updatedBrand})
+
+    }
+    catch(error)
+    {
+        next(error)
+    }
+
+}
+
+
+export const deleteBrand = async (req,res,next) => {
+
+    if(!req.user.isAdmin)
+    {
+        return next(errorHandler(403,"you are not allowed to update this brand"))
+    }
+
+    const {brandId}  = req.params
+
+    const brand = await Brand.findById(brandId)
+
+    if(!brand)
+    {
+        return next(errorHandler(404,"brand not found"))
+    }
+
+    try
+    {
+        await Brand.findByIdAndDelete(brandId)
+
+        res.status(200).json({success:true , message:`${brand.name} is deleted`})
+
+    }
+    catch(error)
+    {
+        next(error)
+    }
+
+}
+
+
+
+// CATOGORIES
+
+export const createCategory = async (req,res,next) => {
+
+    if(!req.user.isAdmin)
+    {
+        return next(errorHandler(403,"you are not allowed to create a category"))
+    }
+
+    const {category} = req.body
+
+    try
+    {
+        const newCategory = new Category({
+            category
+        })
+
+        await newCategory.save()
+
+        res.status(200).json({success:true , message:`${newCategory.name} category added successffully`})
+
+    }
+    catch(error)
+    {
+        next(error)
+    }
+
+}
+
+export const getCategory = async (req,res,next) => {
+
+    const {categoryId} = req.params
+
+    try
+    {
+        const category = await Category.findById(categoryId)
+
+        if(!category)
+        {
+            return next(errorHandler(404,"category not found"))
+        }
+
+        res.status(200).json({success:true , category})
+
+    }
+    catch(error)
+    {
+        next(error)
+    }
+
+}
+
+
+export const getCategorys = async (req,res,next) => {
+
+    try
+    {
+
+        const categorys = await Category.find({}).sort({_id:-1})
+
+        res.status(200).json({success:true , categorys})
+
+    }
+    catch(error)
+    {
+        next(error)
+    }
+
+}
+
+
+export const updateCategory = async (req,res,next) => {
+
+    if(!req.user.isAdmin)
+    {
+        return next(errorHandler(403,"you are not allowed to update this category"))
+    }
+
+    const {categoryId}  = req.params
+
+    const category = await Category.findById(CategoryId)
+
+    if(!category)
+    {
+        return next(errorHandler(404,"Category not found"))
+    }
+
+    try
+    {
+        const updatedCategory = await Category.findByIdAndUpdate(
+            categoryId,
+            { 
+                $set:{
+                    name:req.body.name
+                }
+            },
+            {new:true}
+        )
+
+        res.status(200).json({success:true ,  updatedCategory})
+
+    }
+    catch(error)
+    {
+        next(error)
+    }
+
+}
+
+
+export const deleteCategory = async (req,res,next) => {
+
+    if(!req.user.isAdmin)
+    {
+        return next(errorHandler(403,"you are not allowed to delete this Category"))
+    }
+
+    const {categoryId}  = req.params
+
+    const category = await Category.findById(categoryId)
+
+    if(!category)
+    {
+        return next(errorHandler(404,"category not found"))
+    }
+
+    try
+    {
+        await Category.findByIdAndDelete(categoryId)
+
+        res.status(200).json({success:true , message:`${category.name} is deleted`})
+    }
+    catch(error)
+    {
+        next(error)
+    }
+
+}
+
+
+
+// SIZE
+
+export const createSize = async (req,res,next) => {
+
+    if(!req.user.isAdmin)
+    {
+        return next(errorHandler(403,"you are not allowed to create a Size"))
+    }
+
+    const {name} = req.body
+
+    try
+    {
+        const newSize = new Size({
+            name
+        })
+
+        await newSize.save()
+
+        res.status(200).json({success:true , message:`${newSize.name} Size added successffully`})
+
+    }
+    catch(error)
+    {
+        next(error)
+    }
+
+}
+
+export const getSize = async (req,res,next) => {
+
+    const {sizeId} = req.params
+
+    try
+    {
+        const size = await Size.findById(sizeId)
+
+        if(!size)
+        {
+            return next(errorHandler(404,"size not found"))
+        }
+
+        res.status(200).json({success:true , size})
+
+    }
+    catch(error)
+    {
+        next(error)
+    }
+
+}
+
+
+export const getSizes = async (req,res,next) => {
+
+    try
+    {
+
+        const sizes = await Size.find({}).sort({_id:-1})
+
+        res.status(200).json({success:true , sizes})
+
+    }
+    catch(error)
+    {
+        next(error)
+    }
+
+}
+
+
+export const updateSize = async (req,res,next) => {
+
+    if(!req.user.isAdmin)
+    {
+        return next(errorHandler(403,"you are not allowed to update this Size"))
+    }
+
+    const {sizeId}  = req.params
+
+    const size = await Size.findById(sizeId)
+
+    if(!size)
+    {
+        return next(errorHandler(404,"size not found"))
+    }
+
+    try
+    {
+        const updatedSize = await Size.findByIdAndUpdate(
+            sizeId,
+            { 
+                $set:{
+                    name:req.body.name
+                }
+            },
+            {new:true}
+        )
+
+        res.status(200).json({success:true ,  updatedSize})
+
+    }
+    catch(error)
+    {
+        next(error)
+    }
+
+}
+
+
+export const deleteSize = async (req,res,next) => {
+
+    if(!req.user.isAdmin)
+    {
+        return next(errorHandler(403,"you are not allowed to delete this Size"))
+    }
+
+    const {sizeId}  = req.params
+
+    const size = await Size.findById(sizeId)
+
+    if(!size)
+    {
+        return next(errorHandler(404,"size not found"))
+    }
+
+    try
+    {
+        await Size.findByIdAndDelete(sizeId)
+
+        res.status(200).json({success:true , message:`${size.name} is deleted`})
+    }
+    catch(error)
+    {
+        next(error)
+    }
+
+}
+
+
+
+
+// Color
+
+export const createColor = async (req,res,next) => {
+
+    if(!req.user.isAdmin)
+    {
+        return next(errorHandler(403,"you are not allowed to create a color"))
+    }
+
+    const {name,hex} = req.body
+
+    try
+    {
+        const newColor = new Color({
+            name,hex
+        })
+
+        await newColor.save()
+
+        res.status(200).json({success:true , message:`${newColor.name} Color added successffully`})
+
+    }
+    catch(error)
+    {
+        next(error)
+    }
+
+}
+
+export const getColor = async (req,res,next) => {
+
+    const {colorId} = req.params
+
+    try
+    {
+        const color = await Color.findById(colorId)
+
+        if(!color)
+        {
+            return next(errorHandler(404,"color not found"))
+        }
+
+        res.status(200).json({success:true , color})
+
+    }
+    catch(error)
+    {
+        next(error)
+    }
+
+}
+
+
+export const getColors = async (req,res,next) => {
+
+    try
+    {
+
+        const colors = await Color.find({}).sort({_id:-1})
+
+        res.status(200).json({success:true , colors})
+
+    }
+    catch(error)
+    {
+        next(error)
+    }
+
+}
+
+
+export const updateColor = async (req,res,next) => {
+
+    if(!req.user.isAdmin)
+    {
+        return next(errorHandler(403,"you are not allowed to update this Color"))
+    }
+
+    const {colorId}  = req.params
+
+    const color = await Color.findById(colorId)
+
+    if(!color)
+    {
+        return next(errorHandler(404,"color not found"))
+    }
+
+    try
+    {
+        const updatedColor = await Color.findByIdAndUpdate(
+            colorId,
+            { 
+                $set:{
+                    name:req.body.name
+                }
+            },
+            {new:true}
+        )
+
+        res.status(200).json({success:true ,  updatedColor})
+
+    }
+    catch(error)
+    {
+        next(error)
+    }
+
+}
+
+
+export const deleteColor = async (req,res,next) => {
+
+    if(!req.user.isAdmin)
+    {
+        return next(errorHandler(403,"you are not allowed to delete this color"))
+    }
+
+    const {colorId}  = req.params
+
+    const color = await Color.findById(colorId)
+
+    if(!color)
+    {
+        return next(errorHandler(404,"color not found"))
+    }
+
+    try
+    {
+        await Color.findByIdAndDelete(colorId)
+
+        res.status(200).json({success:true , message:`${color.name} is deleted`})
+    }
+    catch(error)
+    {
+        next(error)
+    }
+
+}
+
