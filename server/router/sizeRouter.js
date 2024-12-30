@@ -12,9 +12,9 @@ sizeRouter.get('/get-size/:sizeId', getSize)
 
 sizeRouter.get('/get-sizes', getSizes)
 
-sizeRouter.put('/update-size' ,verifyToken, updateSize)
+sizeRouter.put('/update-size/:sizeId' ,verifyToken, updateSize)
 
-sizeRouter.delete('/delete-size' ,verifyToken, deleteSize)
+sizeRouter.delete('/delete-size/:sizeId' ,verifyToken, deleteSize)
 
 
 

@@ -134,7 +134,8 @@ export const updateProduct = async (req,res,next) => {
                     latest:req.body.latest,
                     featured:req.body.featured,
                     colors:req.body.colors,
-                    sizes:req.body.sizes
+                    sizes:req.body.sizes,
+                    instock:req.body.instock
                 }
             },
             {new:true}
@@ -188,12 +189,12 @@ export const createBrand = async (req,res,next) => {
         return next(errorHandler(403,"you are not allowed to create a brand"))
     }
 
-    const {brand} = req.body
+    const {name} = req.body
 
     try
     {
         const newBrand = new Brand({
-            brand
+            name
         })
 
         await newBrand.save()
@@ -332,12 +333,12 @@ export const createCategory = async (req,res,next) => {
         return next(errorHandler(403,"you are not allowed to create a category"))
     }
 
-    const {category} = req.body
+    const {name} = req.body
 
     try
     {
         const newCategory = new Category({
-            category
+            name
         })
 
         await newCategory.save()
@@ -403,7 +404,7 @@ export const updateCategory = async (req,res,next) => {
 
     const {categoryId}  = req.params
 
-    const category = await Category.findById(CategoryId)
+    const category = await Category.findById(categoryId)
 
     if(!category)
     {
@@ -473,12 +474,13 @@ export const createSize = async (req,res,next) => {
         return next(errorHandler(403,"you are not allowed to create a Size"))
     }
 
-    const {name} = req.body
+    const {color,hex} = req.body
 
     try
     {
         const newSize = new Size({
-            name
+            color,
+            hex
         })
 
         await newSize.save()
@@ -557,7 +559,7 @@ export const updateSize = async (req,res,next) => {
             sizeId,
             { 
                 $set:{
-                    name:req.body.name
+                    name:req.body.name,
                 }
             },
             {new:true}
@@ -699,7 +701,8 @@ export const updateColor = async (req,res,next) => {
             colorId,
             { 
                 $set:{
-                    name:req.body.name
+                    name:req.body.name,
+                    hex:req.body.hex
                 }
             },
             {new:true}

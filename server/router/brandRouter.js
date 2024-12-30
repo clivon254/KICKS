@@ -14,9 +14,9 @@ brandRouter.get('/get-brand/:brandId', getBrand)
 
 brandRouter.get('/get-brands', getBrands)
 
-brandRouter.put('/update-brand' ,verifyToken, updateBrand)
+brandRouter.put('/update-brand/:brandId' ,verifyToken, updateBrand)
 
-brandRouter.delete('/delete-brand' ,verifyToken, deleteBrand)
+brandRouter.delete('/delete-brand/:brandId' ,verifyToken, deleteBrand)
 
 
 export default brandRouter

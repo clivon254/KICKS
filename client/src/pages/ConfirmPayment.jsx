@@ -9,7 +9,7 @@ import axios from "axios"
 
 export default function ConfirmPayment() {
 
-    const {url,token,getCart} = useContext(StoreContext)
+    const {url,token,getCart,fetchOrders} = useContext(StoreContext)
 
     const [processingPayment ,setProcessingPayment] = useState(false)
 
@@ -149,7 +149,8 @@ export default function ConfirmPayment() {
   return (
 
     <section className="section">
-
+        
+        {/* success */}
         {paymentSuccess && !paymentError && !processingPayment && (
 
             <div className="w-full h-[50vh] flex flex-col gap-y-3 items-center justify-center">
@@ -168,10 +169,11 @@ export default function ConfirmPayment() {
                     
                     <button className="btn2 ">
 
-                        <Link to="/orders">
-
+                        <Link 
+                            to="/orders"
+                            onClick={() => fetchOrders()}
+                        >
                             proceed to orders
-
                         </Link>
 
                     </button>
@@ -181,7 +183,8 @@ export default function ConfirmPayment() {
             </div>
 
         )}
-
+        
+        {/* processing */}
         {!paymentSuccess && !paymentError && processingPayment && (
 
             <div className="w-full h-[50vh] flex flex-col gap-y-3 items-center justify-center">
@@ -202,6 +205,7 @@ export default function ConfirmPayment() {
 
         )}
 
+        {/* error */}
         {paymentError && (
 
             <div className="w-full h-[50vh] flex flex-col gap-y-3 items-center justify-center">

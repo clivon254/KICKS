@@ -13,9 +13,9 @@ colorRouter.get('/get-color/:colorId', getColor)
 
 colorRouter.get('/get-colors', getColors)
 
-colorRouter.put('/update-color' , verifyToken, updateColor)
+colorRouter.put('/update-color/:colorId', verifyToken, updateColor)
 
-colorRouter.delete('/delete-color' ,verifyToken, deleteColor)
+colorRouter.delete('/delete-color/:colorId' ,verifyToken, deleteColor)
 
 
 
