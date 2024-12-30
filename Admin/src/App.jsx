@@ -24,6 +24,18 @@ import CheckOut from './pages/CheckOut'
 import ConfirmPayment from './pages/ConfirmPayment'
 import Coupon from './pages/Coupon'
 import UpdateCoupon from './pages/UpdateCoupon'
+import AddCategory from './pages/AddCategory'
+import Category from './pages/Category'
+import UpdateCategory from './pages/UpdateCategory'
+import AddBrand from './pages/AddBrand'
+import UpdateBrand from './pages/UpdateBrand'
+import Brand from './pages/Brand'
+import AddSize from './pages/AddSize'
+import UpdateSize from './pages/UpdateSize'
+import Size from './pages/Size'
+import AddColor from './pages/AddColor'
+import UpdateColor from './pages/UpdateColor'
+import Color from './pages/Color'
 
 function App() {
  
@@ -101,6 +113,30 @@ function App() {
             <Route path="/coupons" element={<Coupon/>}/>
 
             <Route path="/profile" element={<Profile/>}/>
+
+            <Route path="/add-category" element={<AddCategory/>}/>
+
+            <Route path="/update-category/:categoryId" element={<UpdateCategory/>}/>
+
+            <Route path="/category" element={<Category/>}/>
+
+            <Route path="/add-brand" element={<AddBrand/>}/>
+
+            <Route path="/update-brand/:brandId" element={<UpdateBrand/>}/>
+
+            <Route path="/brand" element={<Brand/>}/>
+
+            <Route path="/add-size" element={<AddSize/>}/>
+
+            <Route path="/update-size/:sizeId" element={<UpdateSize/>}/>
+
+            <Route path="/size" element={<Size/>}/>
+
+            <Route path="/add-color" element={<AddColor/>}/>
+
+            <Route path="/update-color/:colorId" element={<UpdateColor/>}/>
+
+            <Route path="/color" element={<Color/>}/>
 
             <Route path="/cart" element={<Cart/>}/>
 

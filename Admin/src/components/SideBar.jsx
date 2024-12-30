@@ -1,12 +1,15 @@
 
 
 import React, { useContext } from 'react'
-import { MdHome, MdSubscriptions } from 'react-icons/md'
+import { MdHome, MdOutlineTerminal, MdOutlineUnarchive, MdSubscriptions } from 'react-icons/md'
 import { HiOutlineCollection } from "react-icons/hi";
 import { CiDeliveryTruck } from "react-icons/ci";
 import { RiCoupon2Line ,RiCoupon4Fill} from "react-icons/ri";
 import { NavLink } from 'react-router-dom';
 import { StoreContext } from '../context/store';
+import { IoIosColorPalette,IoIosColorFill ,IoMdResize} from "react-icons/io";
+import { TbBrandAirtable ,TbBrandAlpineJs} from "react-icons/tb";
+
 
 
 export default function SideBar() {
@@ -48,12 +51,52 @@ export default function SideBar() {
         title:"Subscribes",
         path:"/subscribe",
         icon:<MdSubscriptions size={30}/>
+    },
+    {
+        title:"Colors",
+        path:"/color",
+        icon:<IoIosColorPalette size={30}/>
+    },
+    {
+        title:"Add Color",
+        path:"/add-color",
+        icon:<IoIosColorFill size={30}/>
+    },
+    {
+        title:"Size",
+        path:"/size",
+        icon:<IoMdResize size={30}/>
+    },
+    {
+        title:"Add Size",
+        path:"/add-size",
+        icon:<MdSubscriptions size={30}/>
+    },
+    {
+        title:"Category",
+        path:"/category",
+        icon:<MdOutlineTerminal size={30}/>
+    },
+    {
+        title:"Add Category",
+        path:"/add-category",
+        icon:<MdSubscriptions size={30}/>
+    },
+    {
+        title:"Brand",
+        path:"/brand",
+        icon:<MdOutlineUnarchive size={30}/>
+    },
+    {
+        title:"Add Brand",
+        path:"/add-brand",
+        icon:<TbBrandAlpineJs size={30}/>
     }
   ]
 
   return (
 
-    <aside className="p-3  h-full w-full">
+    <aside className="p-3  h-full w-full ">
         
         <nav className="flex flex-col gap-y-4">
 
