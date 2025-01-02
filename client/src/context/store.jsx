@@ -65,6 +65,7 @@ export default function StoreContextProvider (props){
     const [couponError ,setCouponError] = useState(false)
 
 
+
     // fetch products
     const fetchProducts = async () => {
 
@@ -184,6 +185,7 @@ export default function StoreContextProvider (props){
 
     }
 
+
     
     useEffect(() => {
 
@@ -192,8 +194,6 @@ export default function StoreContextProvider (props){
         fetchProducts()
 
         fetchOrders()
-
-        fetchCoupons()
 
     },[])
 
@@ -320,7 +320,7 @@ export default function StoreContextProvider (props){
         coupons,setCoupons,
         couponLoading,setCouponLoading,
         couponError,setCouponError,
-        fetchCoupons
+        fetchCoupons 
     }
 
     return(

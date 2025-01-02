@@ -474,13 +474,12 @@ export const createSize = async (req,res,next) => {
         return next(errorHandler(403,"you are not allowed to create a Size"))
     }
 
-    const {color,hex} = req.body
+    const {name} = req.body
 
     try
     {
         const newSize = new Size({
-            color,
-            hex
+            name
         })
 
         await newSize.save()
@@ -555,6 +554,7 @@ export const updateSize = async (req,res,next) => {
 
     try
     {
+        
         const updatedSize = await Size.findByIdAndUpdate(
             sizeId,
             { 
