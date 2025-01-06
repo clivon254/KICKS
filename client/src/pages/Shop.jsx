@@ -8,7 +8,7 @@ import { MdClose } from 'react-icons/md'
 
 export default function Shop() {
 
-    const {products} = useContext(StoreContext)
+    const {products,brands,categorys} = useContext(StoreContext)
 
     const [filteredProducts , setFilteredProducts] = useState([])
 
@@ -134,57 +134,30 @@ export default function Shop() {
 
                         <h3 className="title3">Brands</h3>
 
-                        <div className=" flex items-center gap-x-4 cursor-pointer">
+                        {brands.length > 1 && (
 
-                            <input 
-                                type="checkbox" 
-                                className="rounded" 
-                                value={'Jordans'}
-                                onChange={toggleBrand}
-                            />
+                            <>
 
-                            <label className="label">jordans</label>
+                                {brands.map((brand,index) => (
 
-                        </div>
+                                    <div key={index} className=" flex items-center gap-x-4 cursor-pointer">
 
-                        <div className=" flex items-center gap-x-4 cursor-pointer">
+                                        <input 
+                                            type="checkbox" 
+                                            className="rounded" 
+                                            value={brand.name}
+                                            onChange={toggleBrand}
+                                        />
 
-                            <input 
-                                type="checkbox" 
-                                className="rounded" 
-                                value={'Nike'}
-                                onChange={toggleBrand}
-                            />
+                                      <label className="label">{brand.name}</label>
 
-                            <label className="label">Nike</label>
+                                    </div>
+                                ))}
 
-                        </div>
+                            </>
 
-                        <div className=" flex items-center gap-x-4 cursor-pointer">
-
-                            <input 
-                                type="checkbox" 
-                                className="rounded" 
-                                value={'Addidas'}
-                                onChange={toggleBrand}
-                            />
-
-                            <label className="label">Addidas</label>
-
-                        </div>
-
-                        <div className=" flex items-center gap-x-4 cursor-pointer">
-
-                            <input 
-                                type="checkbox" 
-                                className="rounded" 
-                                value={'prada'}
-                                onChange={toggleBrand}
-                            />
-
-                            <label className="label">Prada</label>
-
-                        </div>
+                        )}
+                        
 
                     </div>
 
@@ -193,57 +166,30 @@ export default function Shop() {
 
                         <h3 className="title3">Categories </h3>
 
-                        <div className=" flex items-center gap-x-4 cursor-pointer">
+                        {categorys.length > 1 && (
 
-                            <input 
-                                type="checkbox" 
-                                className="rounded" 
-                                value={'men'}
-                                onChange={toggleCategory}
-                            />
+                            <>
 
-                            <label className="label">men</label>
+                                {categorys.map((category,index) => (
 
-                        </div>
+                                    <div key={index} className=" flex items-center gap-x-4 cursor-pointer">
 
-                        <div className=" flex items-center gap-x-4 cursor-pointer">
+                                            <input 
+                                                type="checkbox" 
+                                                className="rounded" 
+                                                value={category.name}
+                                                onChange={toggleCategory}
+                                            />
 
-                            <input 
-                                type="checkbox" 
-                                className="rounded" 
-                                value={'women'}
-                                onChange={toggleCategory}
-                            />
+                                            <label className="label">{category.name}</label>
 
-                            <label className="label">women</label>
+                                    </div>
 
-                        </div>
-
-                        <div className=" flex items-center gap-x-4 cursor-pointer">
-
-                            <input 
-                                type="checkbox" 
-                                className="rounded" 
-                                value={'kids'}
-                                onChange={toggleCategory}
-                            />
-
-                            <label className="label">kids</label>
-
-                        </div>
-
-                        <div className=" flex items-center gap-x-4 cursor-pointer">
-
-                            <input 
-                                type="checkbox" 
-                                className="rounded" 
-                                value={'unisex'}
-                                onChange={toggleCategory}
-                            />
-
-                            <label className="label">unisex</label>
-
-                        </div>
+                                ))}
+                            
+                            </>
+                        )}
+                        
 
                     </div>
 
@@ -271,7 +217,7 @@ export default function Shop() {
                         {/* filter */}
                         <div 
                             onClick={() => setFilterOpen(true)}
-                            className="flex items-center border border-zinc-800 px-4 py-1 rounded gap-x-2 text-sm font-semibold"
+                            className="flex items-center border border-zinc-800 px-4 py-1 rounded gap-x-2 text-sm font-semibold lg:hidden"
                         >
                                 <FaSlidersH/>
                                 

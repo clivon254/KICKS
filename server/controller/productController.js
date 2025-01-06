@@ -3,10 +3,15 @@
 import Brand from "../model/brandModel.js"
 import Category from "../model/categoryModel.js"
 import Color from "../model/colorModel.js"
+import Order from "../model/orderModel.js"
 import Product from "../model/productModel.js"
 import Size from "../model/sizeModel.js"
 import { errorHandler } from "../utils/error.js"
 
+
+
+
+// STATS
 
 export const stats = async (req,res,next) => {
 
@@ -23,9 +28,42 @@ export const stats = async (req,res,next) => {
 
         startDate.setDate(currentDate.getDate() - numofDays)
 
-        const totalProdocts = await Product.find({}).countDocuments()
+        const totalProducts = await Product.find({}).countDocuments()
 
         const outOfStock = await Product.find({instock: {$lt:1}})
+
+        const pendingOrders = await Order.find({status: "pending"}).countDocuments()
+
+        const saleStatus = await Order.aggregate([
+            {
+                $match:{
+                    status:"pending"
+                }
+            },
+            {
+                $group:{
+                    _id:{
+                        $dateToString:{format:"%Y-%m-%d" , date:"$createdAt"}
+                    },
+                    Total:{$sum:1}
+                }
+            },
+            {$sort: {_id: 1}}
+        ])
+
+        const categorys = await Category.find({}).countDocuments()
+
+        const brands = await Brand.find({}).countDocuments()
+
+        res.status(200).json({
+            success:true,
+            totalProducts,
+            outOfStock,
+            brands,
+            categorys,
+            pendingOrders,
+            saleStatus
+        })
 
         
     }
@@ -35,6 +73,7 @@ export const stats = async (req,res,next) => {
     }
 
 }
+
 
 
 // PRODUCTS

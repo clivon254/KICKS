@@ -46,8 +46,7 @@ export default function ProductPage() {
 
     const [cartLoading ,setCartLoading] = useState(null)
 
-    const navigate = useNavigate()
-   
+    const navigate = useNavigate() 
      
     // addToCart
     const addToCart = async () => {
@@ -156,7 +155,6 @@ export default function ProductPage() {
         }
 
     }
-
 
      // fetch product
     const fetchProduct = async () => {
@@ -301,7 +299,7 @@ export default function ProductPage() {
 
                         </div>
 
-                        {/* color */}
+                       {/* color */}
                         <div className="space-y-2">
 
                             <p className="text-xs font-semibold">Available colors</p>
@@ -312,12 +310,15 @@ export default function ProductPage() {
                                    
                                    <>
 
-                                        <div className={`${color.color === coloring && ("border-2 border-blue-800  h-9 w-9 rounded-full flex items-center justify-center")}`}>
+                                        <div className={`${color?.name === coloring && ("border-2 border-blue-800  h-9 w-9 rounded-full flex items-center justify-center")}`}>
                                             
                                             <span 
                                                 key={index} 
-                                                className={`bg-[${color.hex}]  p-3 block h-6 w-6 border border-zinc-800 rounded-full cursor-pointer`}
-                                                onClick={() => setcoloring(color.color)}
+                                                className={`p-3 block h-6 w-6 border border-zinc-800 rounded-full cursor-pointer`}
+                                                onClick={() => setcoloring(color.name)}
+                                                style={{
+                                                    backgroundColor: color.hex
+                                                }}
                                             />
 
                                         </div>
@@ -340,10 +341,10 @@ export default function ProductPage() {
 
                                     <span 
                                         key={index} 
-                                        className={`px-3 py-1 cursor-pointer ${size === sizing ? "border-blue-800 border-4" :"border-black border-2"}`}
-                                        onClick={() => setSizing(size)}
+                                        className={`px-3 py-1 cursor-pointer ${size.name === sizing ? "border-blue-800 border-4" :"border-black border-2"}`}
+                                        onClick={() => setSizing(size.name)}
                                     >
-                                      {size}
+                                      {size.name}
                                     </span>
 
                                 ))}

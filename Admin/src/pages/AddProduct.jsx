@@ -17,7 +17,7 @@ import 'react-quill/dist/quill.snow.css';
 
 export default function AddProduct() {
 
-  const {url ,token,fetchProducts} = useContext(StoreContext)
+  const {url ,token,fetchProducts,colors,setColors,sizes,setSizes,categorys,brands} = useContext(StoreContext)
 
   const [files ,setFiles] = useState([])
 
@@ -36,32 +36,7 @@ export default function AddProduct() {
     discountPrice:0
   })
 
-  const [sizes , setSizes] = useState(['32','33','36','37','39','40','41','42'])
-
   const [selectedSizes ,setSelectedSizes] = useState([])
-
-  const [colors , setColors] = useState([
-    {
-      color: 'Red',
-      hex: '#FF0000',
-    },
-    {
-      color: 'Blue',
-      hex: '#0000FF',
-    },
-    {
-      color: 'Green',
-      hex: '#00FF00',
-    },
-    {
-      color: 'Yellow',
-      hex: '#FFFF00',
-    },
-    {
-      color: 'Purple',
-      hex: '#800080',
-    }
-  ])
 
   const [selectedColors ,setSelectedColors] = useState([])
   
@@ -296,13 +271,11 @@ export default function AddProduct() {
             >
               <option value="">Select Category</option>
 
-              <option value="men">men</option>
+              {categorys.map((category,index) => (
 
-              <option value="women">women</option>
+                <option key={index} value={category.name}>{category.name}</option>
 
-              <option value="kids">kids</option>
-
-              <option value="unisex">unisex</option>
+              ))}
 
             </select>
 
@@ -318,15 +291,14 @@ export default function AddProduct() {
               onChange={(e) => setFormData({...formData , brand:e.target.value})}
               className="input"
             >
-              <option value="">Select brand</option>
 
-              <option value="Jordans">Jordans</option>
+              <option value="">Select Brand</option>
 
-              <option value="Nike">Nike</option>
+              {brands.map((brand,index) => (
 
-              <option value="Addidas">Addidas</option>
+                <option key={index} value={brand.name}>{brand.name}</option>
 
-              <option value="prada">prada</option>
+              ))}
 
             </select>
 
@@ -444,7 +416,7 @@ export default function AddProduct() {
               <ListboxButton className="z-40 relative w-full cursor-default rounded bg-transparent pl-3 pr-3 text-left px-3 py-4 2xl:py-6 border border-gray-500 sm:text-sm outline-blue-800">
 
                 <span className="">
-                  {selectedColors?.map((user) => user.color).join(",")}
+                  {selectedColors?.map((user) => user.name).join(",")}
                 </span>
 
                 <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
@@ -456,7 +428,7 @@ export default function AddProduct() {
               <Transition
                 as={Fragment}
                 leave="transition ease-in duration-100"
-                leaveFrom="opcity-0"
+                leaveFrom="opacity-0"
                 className="border shadow-md"
               >
 
@@ -479,7 +451,7 @@ export default function AddProduct() {
                               "flex items-center gap-2 truncate",
                               selected ? "font-medium" : "font-normal"
                             )}>
-                               <span className="">{color.color}</span>
+                               <span className="">{color.name}</span>
                             </div>
 
                             {selected && (
@@ -524,7 +496,7 @@ export default function AddProduct() {
               <ListboxButton className="relative w-full cursor-default rounded bg-transparent pl-3 pr-3 text-left px-3 py-4 2xl:py-6 border border-gray-500 sm:text-sm outline-blue-800">
 
                 <span className="">
-                  {selectedSizes?.map((user) => user).join(",")}
+                  {selectedSizes?.map((user) => user.name).join(",")}
                 </span>
 
                 <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
@@ -559,7 +531,7 @@ export default function AddProduct() {
                               "flex items-center gap-2 truncate",
                               selected ? "font-medium" : "font-normal"
                             )}>
-                               <span className="">{color}</span>
+                               <span className="">{color.name}</span>
                             </div>
 
                             {selected && (

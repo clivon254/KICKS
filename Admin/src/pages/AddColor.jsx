@@ -72,6 +72,8 @@ export default function AddColor() {
 
   }
 
+  console.log(formData)
+
   return (
     
     <section className="section space-y-10 max-w-xl mx-auto">
@@ -102,15 +104,20 @@ export default function AddColor() {
           <label className="label">hex</label>
 
           <input 
-            type="text" 
-            className="input" 
-            placeholder='hex code'
+            type="color" 
+            className="w-full input cursor-pointer" 
+            // placeholder='hex code'
             name="hex"
             onChange={handleChange}
             value={formData.hex}
           />
 
         </div>
+
+        <div 
+          className="h-10 w-full border border-zinc-300 rounded-md"
+          style={{ backgroundColor: formData?.hex }}
+        />
 
         {/* button */}
         <button 

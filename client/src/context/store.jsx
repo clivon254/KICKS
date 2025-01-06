@@ -64,6 +64,29 @@ export default function StoreContextProvider (props){
 
     const [couponError ,setCouponError] = useState(false)
 
+    const [colors , setColors] = useState([])
+
+    const [colorLoading ,setColorLoading] = useState(false)
+
+    const [colorError , setColorError] = useState(false)
+
+    const [sizes , setSizes] = useState([])
+
+    const [sizeLoading ,setSizeLoading] = useState(false)
+
+    const [sizeError , setSizeError] = useState(false)
+
+    const [brands , setBrands] = useState([])
+
+    const [brandLoading ,setBrandLoading] = useState(false)
+
+    const [brandError , setBrandError] = useState(false)
+
+    const [categorys , setCategorys] = useState([])
+
+    const [categoryLoading ,setCategoryLoading] = useState(false)
+
+    const [categoryError , setCategoryError] = useState(false)
 
 
     // fetch products
@@ -185,6 +208,125 @@ export default function StoreContextProvider (props){
 
     }
 
+     // fetchColors
+     const fetchColors = async () => {
+
+        setColorLoading(true)
+
+        setColorError(false)
+
+        try
+        {
+            const res = await axios.get(url + "/api/color/get-colors")
+
+            if(res.data.success)
+            {
+                setColorLoading(false)
+
+                setColors(res.data.colors)
+            }
+
+        }
+        catch(error)
+        {
+            setColorLoading(false)
+
+            setColorError(true)
+
+            console.log(error.message)
+        }
+
+    }
+
+    // fetchColors
+    const fetchSizes = async () => {
+
+        setSizeLoading(true)
+
+        setSizeError(false)
+
+        try
+        {
+            const res = await axios.get(url + "/api/size/get-sizes")
+
+            if(res.data.success)
+            {
+                setSizeLoading(false)
+
+                setSizes(res.data.sizes)
+            }
+
+        }
+        catch(error)
+        {
+            setSizeLoading(false)
+
+            setSizeError(true)
+
+            console.log(error.message)
+        }
+
+    }
+
+    // fetchBrands
+    const fetchBrands = async () => {
+
+        setBrandLoading(true)
+
+        setBrandError(false)
+
+        try
+        {
+            const res = await axios.get(url + "/api/brand/get-brands")
+
+            if(res.data.success)
+            {
+                setBrandLoading(false)
+
+                setBrands(res.data.brands)
+            }
+
+        }
+        catch(error)
+        {
+            setBrandLoading(false)
+
+            setBrandError(true)
+
+            console.log(error.message)
+        }
+
+    }
+
+    // fetchCategorys
+    const fetchCategorys = async () => {
+
+        setCategoryLoading(true)
+
+        setCategoryError(false)
+
+        try
+        {
+            const res = await axios.get(url + "/api/category/get-categorys")
+
+            if(res.data.success)
+            {
+                setCategoryLoading(false)
+
+                setCategorys(res.data.categorys)
+            }
+
+        }
+        catch(error)
+        {
+            setCategoryLoading(false)
+
+            setCategoryError(true)
+
+            console.log(error.message)
+        }
+
+    }
 
     
     useEffect(() => {
@@ -194,6 +336,14 @@ export default function StoreContextProvider (props){
         fetchProducts()
 
         fetchOrders()
+
+        fetchColors()
+
+        fetchSizes()
+
+        fetchCategorys()
+
+        fetchBrands()
 
     },[])
 
@@ -295,9 +445,6 @@ export default function StoreContextProvider (props){
 
     },[cartItems])
 
-
-
-
     const contextValue = {
         url,
         Navlinks,
@@ -320,7 +467,23 @@ export default function StoreContextProvider (props){
         coupons,setCoupons,
         couponLoading,setCouponLoading,
         couponError,setCouponError,
-        fetchCoupons 
+        fetchCoupons,
+        colors,setColors,
+        colorLoading,setColorLoading,
+        colorError,setColorError,
+        fetchColors,
+        sizes,setSizes,
+        sizeLoading,setSizeLoading,
+        sizeError,setSizeError,
+        fetchSizes,
+        brands,setBrands,
+        brandLoading,setBrandLoading,
+        brandError,setBrandError,
+        fetchBrands,
+        categorys,setCategorys,
+        categoryLoading,setCategoryLoading,
+        categoryError,setCategoryError,
+        fetchCategorys,
     }
 
     return(

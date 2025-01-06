@@ -19,7 +19,7 @@ import Loading from '../components/Loading'
 
 export default function UpdateProduct() {
 
-  const {url ,token} = useContext(StoreContext)
+  const {url ,token,sizes,colors,categorys,brands} = useContext(StoreContext)
 
   const [files ,setFiles] = useState([])
 
@@ -38,32 +38,9 @@ export default function UpdateProduct() {
     discountPrice:0
   })
 
-  const [sizes , setSizes] = useState(['32','33','36','37','39','40','41','42'])
 
   const [selectedSizes ,setSelectedSizes] = useState([])
 
-  const [colors , setColors] = useState([
-    {
-      color: 'Red',
-      hex: '#FF0000',
-    },
-    {
-      color: 'Blue',
-      hex: '#0000FF',
-    },
-    {
-      color: 'Green',
-      hex: '#00FF00',
-    },
-    {
-      color: 'Yellow',
-      hex: '#FFFF00',
-    },
-    {
-      color: 'Purple',
-      hex: '#800080',
-    }
-  ])
 
   const [selectedColors ,setSelectedColors] = useState([])
   
@@ -300,7 +277,7 @@ export default function UpdateProduct() {
   },[productId])
 
 
-
+  console.log(formData)
 
   return (
 
@@ -335,19 +312,18 @@ export default function UpdateProduct() {
                     <label htmlFor="" className="label">Category</label>
 
                     <select 
-                    value={formData.category} 
-                    onChange={(e) => setFormData({...formData , category:e.target.value})}
-                    className="input"
+                      value={formData.category} 
+                      onChange={(e) => setFormData({...formData , category:e.target.value})}
+                      className="input"
                     >
-                    <option value="">Select Category</option>
 
-                    <option value="men">men</option>
+                      <option value="">Select Category</option>
 
-                    <option value="women">women</option>
+                      {categorys.map((category,index) => (
 
-                    <option value="kids">kids</option>
+                        <option key={index} value={category.name}>{category.name}</option>
 
-                    <option value="unisex">unisex</option>
+                      ))}
 
                     </select>
 
@@ -363,16 +339,13 @@ export default function UpdateProduct() {
                     onChange={(e) => setFormData({...formData , brand:e.target.value})}
                     className="input"
                     >
-                    <option value="">Select brand</option>
+                      <option value="">Select Brand</option>
 
-                    <option value="Jordans">Jordans</option>
+                      {brands.map((brand,index) => (
 
-                    <option value="Nike">Nike</option>
+                        <option key={index} value={brand.name}>{brand.name}</option>
 
-                    <option value="Addidas">Addidas</option>
-
-                    <option value="prada">prada</option>
-
+                      ))}
                     </select>
 
                 </div>
@@ -475,163 +448,164 @@ export default function UpdateProduct() {
 
                 {/* color */}
                 <div className="">
-
-                <label htmlFor="" className="label">Colors</label>
-
-                <Listbox
+                
+                  <label htmlFor="" className="label">Colors</label>
+                
+                  <Listbox
                     value={selectedColors}
                     onChange={(el) => handleChangeSelectedColor(el)}
                     multiple
-                >
-
+                  >
+        
                     <div className="relative mt-1">
-
-                    <ListboxButton className="z-40 relative w-full cursor-default rounded bg-transparent pl-3 pr-3 text-left px-3 py-4 2xl:py-6 border border-gray-500 sm:text-sm outline-blue-800">
-
+        
+                      <ListboxButton className="z-40 relative w-full cursor-default rounded bg-transparent pl-3 pr-3 text-left px-3 py-4 2xl:py-6 border border-gray-500 sm:text-sm outline-blue-800">
+        
                         <span className="">
-                        {selectedColors?.map((user) => user.color).join(",")}
+                          {selectedColors?.map((user) => user.name).join(",")}
                         </span>
-
+        
                         <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
-                         <BsChevronExpand size={26}/>
+                          <BsChevronExpand size={26}/>
                         </span>
-
-                    </ListboxButton>
-
-                    <Transition
+        
+                      </ListboxButton>
+        
+                      <Transition
                         as={Fragment}
                         leave="transition ease-in duration-100"
-                        leaveFrom="opcity-0"
+                        leaveFrom="opacity-0"
                         className="border shadow-md"
-                    >
-
-                        <ListboxOptions>
-
+                      >
+        
+                          <ListboxOptions>
+        
                             {colors?.map((color,index) => (
-
-                            <ListboxOption
+        
+                              <ListboxOption
                                 key={index}
                                 className={({active}) => 
                                 `relative cursor-default select-none py-2 pl-10 pr-4
                                 ${active ? "bg-blue-100 text-blue-500" :"text-black"}`}
                                 value={color}
-                            >
+                              >
                                 {({selected}) => (
-
-                                <>
-
+        
+                                  <>
+        
                                     <div className={clsx(
-                                    "flex items-center gap-2 truncate",
-                                    selected ? "font-medium" : "font-normal"
+                                      "flex items-center gap-2 truncate",
+                                      selected ? "font-medium" : "font-normal"
                                     )}>
-                                    <span className="">{color.color}</span>
+                                      <span className="">{color.name}</span>
                                     </div>
-
+        
                                     {selected && (
-
-                                    <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-blue-800">
-
+        
+                                      <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-blue-800">
+        
                                         <BsCheck className="h-5 w-5"/>
-
-                                    </span>
-
+        
+                                      </span>
+        
                                     )}
-
-                                </>
-
+        
+                                  </>
+        
                                 )}
-                            </ListboxOption>
-
+                              </ListboxOption>
+        
                             ))}
-
-                        </ListboxOptions>
-                    </Transition>
-
+        
+                          </ListboxOptions>
+                      </Transition>
+        
                     </div>
-
-                </Listbox>
-
+        
+                  </Listbox>
+                
                 </div>
 
                 {/* sizes */}
                 <div className="">
-
-                <label htmlFor="" className="label">Sizes</label>
-
-                <Listbox
-                    value={selectedSizes}
-                    onChange={(el) => handleChangeSelectedSize(el)}
-                    multiple
-                >
-
-                    <div className="relative mt-1">
-
-                    <ListboxButton className="relative w-full cursor-default rounded bg-transparent pl-3 pr-3 text-left px-3 py-4 2xl:py-6 border border-gray-500 sm:text-sm outline-blue-800">
-
-                        <span className="">
-                        {selectedSizes?.map((user) => user).join(",")}
-                        </span>
-
-                        <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
-                        <BsChevronExpand size={26}/>
-                        </span>
-
-                    </ListboxButton>
-
-                    <Transition
-                        as={Fragment}
-                        leave="transition ease-in duration-100"
-                        leaveFrom="opcity-0"
-                        className="border shadow-md"
+                
+                    <label htmlFor="" className="label">Sizes</label>
+          
+                    <Listbox
+                      value={selectedSizes}
+                      onChange={(el) => handleChangeSelectedSize(el)}
+                      multiple
                     >
-
-                        <ListboxOptions>
-
-                            {sizes?.map((color,index) => (
-
-                            <ListboxOption
-                                key={index}
-                                className={({active}) => 
-                                `relative cursor-default select-none py-2 pl-10 pr-4
-                                ${active ? "bg-blue-100 text-blue-500" :"text-black"}`}
-                                value={color}
-                            >
-                                {({selected}) => (
-
-                                <>
-
-                                    <div className={clsx(
-                                    "flex items-center gap-2 truncate",
-                                    selected ? "font-medium" : "font-normal"
-                                    )}>
-                                    <span className="">{color}</span>
-                                    </div>
-
-                                    {selected && (
-
-                                    <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-blue-800">
-
-                                        <BsCheck className="h-5 w-5"/>
-
-                                    </span>
-
-                                    )}
-
-                                </>
-
-                                )}
-                            </ListboxOption>
-
-                            ))}
-
-                        </ListboxOptions>
-                    </Transition>
-
-                    </div>
-
-                </Listbox>
-
+          
+                      <div className="relative mt-1">
+          
+                        <ListboxButton className="relative w-full cursor-default rounded bg-transparent pl-3 pr-3 text-left px-3 py-4 2xl:py-6 border border-gray-500 sm:text-sm outline-blue-800">
+          
+                          <span className="">
+                            {selectedSizes?.map((user) => user.name).join(",")}
+                          </span>
+          
+                          <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
+                            <BsChevronExpand size={26}/>
+                          </span>
+          
+                        </ListboxButton>
+          
+                        <Transition
+                          as={Fragment}
+                          leave="transition ease-in duration-100"
+                          leaveFrom="opcity-0"
+                          className="border shadow-md"
+                        >
+          
+                            <ListboxOptions>
+          
+                              {sizes?.map((color,index) => (
+          
+                                <ListboxOption
+                                  key={index}
+                                  className={({active}) => 
+                                  `relative cursor-default select-none py-2 pl-10 pr-4
+                                  ${active ? "bg-blue-100 text-blue-500" :"text-black"}`}
+                                  value={color}
+                                >
+                                  {({selected}) => (
+          
+                                    <>
+          
+                                      <div className={clsx(
+                                        "flex items-center gap-2 truncate",
+                                        selected ? "font-medium" : "font-normal"
+                                      )}>
+                                          <span className="">{color.name}</span>
+                                      </div>
+          
+                                      {selected && (
+          
+                                        <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-blue-800">
+          
+                                          <BsCheck className="h-5 w-5"/>
+          
+                                        </span>
+          
+                                      )}
+          
+                                    </>
+          
+                                  )}
+                                </ListboxOption>
+          
+                              ))}
+          
+                            </ListboxOptions>
+                        </Transition>
+          
+                      </div>
+          
+                    </Listbox>
+                
                 </div>
+                
 
                 {/* desctiption */}
                 <div className="">
