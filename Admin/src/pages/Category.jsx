@@ -55,7 +55,7 @@ export default function Category() {
 
         <section className="section space-y-10">
 
-          <h2 className="title2 text-center ">Brands</h2>
+          <h2 className="title2 text-center ">Category</h2>
 
           <div className="tabler">
 

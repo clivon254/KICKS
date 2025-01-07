@@ -97,7 +97,7 @@ export const createProduct = async (req,res,next) => {
 
         await newProduct.save()
 
-        res.status(200).json({success:true , mesage:`${newProduct.name} created successfully`})
+        res.status(200).json({success:true , message:`${newProduct.name} created successfully`})
     }
     catch(error)
     {
