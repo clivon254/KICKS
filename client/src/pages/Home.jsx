@@ -1,6 +1,6 @@
 
 
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
 // Import Swiper styles
@@ -14,12 +14,100 @@ import ProductCard from '../components/ProductCard';
 import { MdChevronLeft, MdChevronRight } from "react-icons/md"
 import { StoreContext } from '../context/store';
 import OfferBanner from '../components/OfferBanner';
+import axios from "axios"
 
 
 
 export default function Home() {
 
-  const {products } = useContext(StoreContext)
+
+  const {products,url  } = useContext(StoreContext)
+
+  const [offers ,setOffers] = useState([])
+
+  const [latests ,setLatests] = useState([])
+
+  const [featureds ,setFeatureds] = useState([])
+
+  console.log(offers)
+
+  console.log(featureds)
+
+  console.log(latests)
+
+
+  // offer products
+  const fetchOffers = async () => {
+
+    try
+    {
+       
+      const res = await axios.get(url + "/api/product/get-products?offer=true") 
+
+      if(res.data.success)
+      {
+        setOffers(res.data.products)
+      }
+
+    }
+    catch(error)
+    {
+      console.log(error.message)
+    }
+
+  }
+
+  // featured products
+  const fetchFeatured = async () => {
+
+    try
+    {
+       
+      const res = await axios.get(url + "/api/product/get-products?feature=true") 
+
+      if(res.data.success)
+      {
+        setFeatureds(res.data.products)
+      }
+
+    }
+    catch(error)
+    {
+      console.log(error.message)
+    }
+
+  }
+
+  // offer products
+  const fetchLatest = async () => {
+
+    try
+    {
+       
+      const res = await axios.get(url + "/api/product/get-products?latest=true") 
+
+      if(res.data.success)
+      {
+        setLatests(res.data.products)
+      }
+
+    }
+    catch(error)
+    {
+      console.log(error.message)
+    }
+
+  }
+
+  useEffect(() => {
+
+    fetchOffers()
+
+    fetchLatest()
+
+    fetchFeatured()
+
+  },[])
 
   return (
 
@@ -82,7 +170,7 @@ export default function Home() {
               nextEl:'.nextArrival'
           }}
           >
-              {products?.map((product,index) => (
+              {latests?.map((product,index) => (
 
                   <SwiperSlide key={index}>
 
@@ -169,7 +257,7 @@ export default function Home() {
               nextEl:'.nextOffer'
           }}
           >
-              {products?.map((product,index) => (
+              {offers?.map((product,index) => (
 
                   <SwiperSlide key={index}>
 
@@ -248,7 +336,7 @@ export default function Home() {
               nextEl:'.nextFeature'
           }}
           >
-              {products?.map((product,index) => (
+              {featureds?.map((product,index) => (
 
                   <SwiperSlide key={index}>
 

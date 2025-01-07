@@ -371,8 +371,8 @@ export default function AddProduct() {
             <input 
               type="checkbox"  
               className=""
-              checked={formData.featured}
-              onChange={(e) => setFormData({...formData , featured : e.target.checked})}
+              checked={formData.feature}
+              onChange={(e) => setFormData({...formData , feature : e.target.checked})}
             />
 
             <label htmlFor="" className="label">featured</label>

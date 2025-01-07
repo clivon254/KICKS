@@ -192,6 +192,8 @@ export default function ProductPage() {
 
         fetchProduct()
 
+        window.scrollTo(0, 0);
+
     },[productId])
 
 

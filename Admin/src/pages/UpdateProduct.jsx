@@ -417,8 +417,8 @@ export default function UpdateProduct() {
                     <input 
                     type="checkbox"  
                     className=""
-                    checked={formData.featured}
-                    onChange={(e) => setFormData({...formData , featured : e.target.checked})}
+                    checked={formData.feature}
+                    onChange={(e) => setFormData({...formData , feature : e.target.checked})}
                     />
 
                     <label htmlFor="" className="label">featured</label>
@@ -439,7 +439,7 @@ export default function UpdateProduct() {
                         className="input"
                         placeholder='discountPrice' 
                         value={formData.discountPrice}
-                        onChange={() => setFormData({...formData , discountPrice : e.target.value})}
+                        onChange={(e) => setFormData({...formData , discountPrice : e.target.value})}
                     />
 
                 </div>

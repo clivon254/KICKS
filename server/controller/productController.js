@@ -130,9 +130,17 @@ export const getProducts = async (req,res,next) => {
 
     try
     {
-        const products = await Product.find().sort({_id:-1})
+        const products = await Product.find({
+            ...(req.query.category && { category : req.query.category}),
+            ...(req.query.brand && { brand : req.query.brand}),
+            ...(req.query.offer && { offer : req.query.offer}),
+            ...(req.query.feature && { feature : req.query.feature}),
+            ...(req.query.latest && { latest : req.query.latest})
+        })
+        .sort({_id:-1})
 
         res.status(200).json({success:true , products})
+
     }
     catch(error)
     {
@@ -171,7 +179,7 @@ export const updateProduct = async (req,res,next) => {
                     discountPrice:req.body.discountPrice,
                     offer:req.body.offer,
                     latest:req.body.latest,
-                    featured:req.body.featured,
+                    feature:req.body.feature,
                     colors:req.body.colors,
                     sizes:req.body.sizes,
                     instock:req.body.instock
