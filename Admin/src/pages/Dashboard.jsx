@@ -3,113 +3,140 @@
 import React from 'react'
 import { useContext } from 'react'
 import { StoreContext } from '../context/store'
-import Error from '../components/Error'
 import Loading from '../components/Loading'
-import { useEffect } from 'react'
+import Error from '../components/Error'
 import { useState } from 'react'
-import { AiOutlineProduct } from "react-icons/ai";
-import { TbBrandBootstrap ,TbCategory2,TbTruckDelivery} from "react-icons/tb";
-import { SiStockx } from "react-icons/si";
-
-
+import { AiOutlineProduct, AiOutlineDeliveredProcedure } from "react-icons/ai";
+import { MdOutlineCategory } from "react-icons/md";
+import { TbBrandBootstrap } from "react-icons/tb";
+import Graph from '../components/Graph'
 
 
 export default function Dashboard() {
 
-  const {stats,setStats,statsLoading,statsError,fetchStats,token} = useContext(StoreContext) 
+  const {stats,setStats,statsLoading,statsError,numofDays,setNumofDays,fetchStats} = useContext(StoreContext)
 
-
-  const [data ,setData] = useState([
+  const [data , setData] = useState([
     {
-      title:"Total Products",
+      title:"total products",
       value:(stats?.totalProducts || 0),
-      icon:<AiOutlineProduct size={24}/>
+      icon:<AiOutlineProduct size={30}/>
     },
     {
-      title:"Total Categories",
+      title:"total category",
       value:(stats?.categorys || 0),
-      icon:<TbCategory2 size={24}/>
+      icon:<MdOutlineCategory size={30}/>
     },
     {
-      title:"Total brands",
+      title:"total brand",
       value:(stats?.brands || 0),
-      icon:<TbBrandBootstrap size={24}/>
-    },
-    {
-      title:"Out of Stock",
-      value:stats?.outOfStock,
-      icon:<SiStockx size={24}/>
+      icon:<TbBrandBootstrap size={30}/>
     },
     {
       title:"Pending Orders",
-      value:(stats?.pendingOrders),
-      icon:<TbTruckDelivery size={24}/>
+      value:(stats?.pendingOrders || 0),
+      icon:< AiOutlineDeliveredProcedure size={30}/>
     }
   ])
 
-  console.log(stats?.brands)
-  
-  console.log(data)
+  console.log(stats)
+
+  // onDateChange
+  const onDateChange = (e) => {
+
+    setNumofDays(e.target.value)
+
+
+  }
 
   return (
 
-   <>
+    <>
 
       {!statsLoading && !statsError && (
 
-        <section className="section">
+      
+        <section className="section space-y-12">
 
           <h2 className="title2 text-center">Stats</h2>
 
-          {/* stats */}
-          <div className="gap-y-8 gap-x-5  grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+          <div className="w-full space-y-5">
 
-            {data?.map((stat,index) => (
+            <div className="w-full flex items-center justify-between">
 
-              <div key={index} className="flex flex-col shadow-md border-slate-200 p-3 border">
+              <span className="text-base font-semibold">Data from the last</span>
 
-                <span className="flex justify-between">
+              <select  
+                className="rounded-md text-sm font-semibold"
+                onChange={onDateChange}
+                value={numofDays}
+              >
 
-                  <span className="text-xl font-semibold text-slate-600">
-                    {stat.title} 
-                  </span>
+                <option value="7" >7 Days </option>
 
-                  <span className="">
-                    {stat.icon}
-                  </span>
+                <option value="14" >14 Days</option>
 
-                </span>
+                <option value="30" >30 Days</option>
 
-                <span className="">
-                  {stat.value}
-                </span>
+                <option value="90" >90 Days</option>
 
-              </div>
+                <option value="180" >180 Days</option>
 
-            ))}
+                <option value="365" >365 Days</option>
+
+              </select>
+
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
+
+                {data.map((stat,index) => (
+
+                  <div key={index} className="border border-slate-300 shadow-md p-3">
+
+                    <span className="flex justify-between">
+
+                      <span className="text-base uppercase text-slate-600">{stat.title}</span>
+
+                      <span className="">{stat.icon}</span>
+
+                    </span>
+
+                    <span className="">{stat.value}</span>
+
+                  </div>
+
+                ))}
+              
+            </div>
 
           </div>
 
-         {/* graph */}
-         <div className=""></div>
-          
+          <div className="w-full">
+
+            <Graph dt={stats?.salesStatus}/>
+
+          </div>
+
         </section>
 
       )}
 
+
       {statsLoading && !statsError && (
 
-        <Loading/>
+        <Loading />
 
       )}
+
 
       {statsError && (
 
-        <Error retry={fetchStats}/>
+        <Error/>
 
       )}
 
-   </>
+    </>
 
   )
 

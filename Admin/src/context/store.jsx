@@ -312,6 +312,8 @@ export default function StoreContextProvider (props){
 
     }
 
+    const [numofDays ,setNumofDays] = useState(7)
+
     // fetchstats
     const fetchStats = async () => {
 
@@ -321,7 +323,7 @@ export default function StoreContextProvider (props){
 
             setStatsError(false)
 
-            const res = await axios.post(url + "/api/product/stats",{},{headers:{token}})
+            const res = await axios.post(url + `/api/product/stats?query=${numofDays}`,{},{headers:{token}})
 
             if(res.data.success)
             {
@@ -342,7 +344,11 @@ export default function StoreContextProvider (props){
 
     }
 
-    console.log(stats)
+    useEffect(() => {
+
+        fetchStats()
+
+    },[numofDays])
     
     useEffect(() => {
 
@@ -507,7 +513,8 @@ export default function StoreContextProvider (props){
         stats,setStats,
         statsLoading,setStatsLoading,
         statsError,setStatsError,
-        fetchStats
+        fetchStats,
+        numofDays,setNumofDays
     }
 
     return(

@@ -49,24 +49,21 @@ function App() {
 
       currentUser && currentUser?.isAdmin ?
 
-        <div className="w-full h-screen flex flex-col ">
+        <div className="w-full h-screen flex flex-col overflow-hidden ">
 
-          <div className="sticky top-0">
+          <Header/>
 
-            <Header/>
-
-          </div>
-
-          <div className="flex-1 overflow-auto flex ">
+          <div className="w-full h-full flex border-t  ">
 
             {/* sidebar */}
-            <div className="hidden lg:block w-full lg:w-1/4 h-full border-r ">
+            <div className="hidden lg:flex w-1/5  overflow-y-scroll ">
 
               <SideBar/>
 
             </div>
-
-            <div className="w-full lg:w-3/4">
+          
+            {/* main */}
+            <div className="w-full lg:w-4/5 overflow-y-scroll">
 
               <Outlet/>
 

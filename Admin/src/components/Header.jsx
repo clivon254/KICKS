@@ -132,9 +132,7 @@ export default function Header() {
         </header>
 
         {/* drawer */}
-        <div 
-          className={`w-full h-full  fixed top-0  bg-black/50 backdrop-blur-sm  origin-right transition-all  duration-200 ease-in lg:hidden overflow-y-hidden  ${open ? "left-0" :"left-[-100%]"}`}
-        >
+        <div className={`w-full h-full  fixed top-0  bg-black/50 backdrop-blur-sm  origin-right transition-all  duration-200 ease-in lg:hidden overflow-y-hidden  ${open ? "left-0" :"left-[-100%]"}`}>
 
             <div className="absolute  left-0 w-[70%] h-full bg-white space-y-6 overflow-y-scroll">
 
