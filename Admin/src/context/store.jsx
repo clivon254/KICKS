@@ -65,6 +65,13 @@ export default function StoreContextProvider (props){
 
     const [categoryError , setCategoryError] = useState(false)
 
+    const [stats ,setStats] = useState(null)
+
+    const [statsLoading , setStatsLoading] = useState(false)
+
+    const [statsError ,setStatsError] = useState(false)
+
+
 
     // fetch products
     const fetchProducts = async () => {
@@ -305,6 +312,37 @@ export default function StoreContextProvider (props){
 
     }
 
+    // fetchstats
+    const fetchStats = async () => {
+
+        try
+        {
+            setStatsLoading(true)
+
+            setStatsError(false)
+
+            const res = await axios.post(url + "/api/product/stats",{},{headers:{token}})
+
+            if(res.data.success)
+            {
+                setStatsLoading(false)
+
+                setStats(res.data)
+            }
+
+        }
+        catch(error)
+        {
+            console.log(error.message)
+
+            setStatsLoading(false)
+
+            setStatsError(true)
+        }
+
+    }
+
+    console.log(stats)
     
     useEffect(() => {
 
@@ -323,6 +361,8 @@ export default function StoreContextProvider (props){
         fetchCategorys()
 
         fetchBrands()
+
+        fetchStats()
 
     },[])
 
@@ -464,6 +504,10 @@ export default function StoreContextProvider (props){
         categoryLoading,setCategoryLoading,
         categoryError,setCategoryError,
         fetchCategorys,
+        stats,setStats,
+        statsLoading,setStatsLoading,
+        statsError,setStatsError,
+        fetchStats
     }
 
     return(

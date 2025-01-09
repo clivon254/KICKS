@@ -12,32 +12,43 @@ import { errorHandler } from "../utils/error.js"
 
 
 // STATS
-
 export const stats = async (req,res,next) => {
 
+    if(!req.user.isAdmin)
+    {
+        return(next(errorHandler(403,"you are not allowed to access the stats")))
+    }
     
     try
     {
         const {query} = req.query
 
-        const numofDays = Number(query) || 28
+        const numofDays = Number(query) || 30
+
 
         const currentDate = new Date()
 
+
         const startDate = new Date()
+
 
         startDate.setDate(currentDate.getDate() - numofDays)
 
+
         const totalProducts = await Product.find({}).countDocuments()
+
 
         const outOfStock = await Product.find({instock: {$lt:1}})
 
-        const pendingOrders = await Order.find({status: "pending"}).countDocuments()
 
-        const saleStatus = await Order.aggregate([
+        const pendingOrders = await Order.find({status:"Processing"}).countDocuments()
+
+
+        const salesStatus = await Order.aggregate([
             {
                 $match:{
-                    status:"pending"
+                    payment:true,
+                    createdAt:{$gte:startDate ,$lte:currentDate}
                 }
             },
             {
@@ -62,7 +73,7 @@ export const stats = async (req,res,next) => {
             brands,
             categorys,
             pendingOrders,
-            saleStatus
+            salesStatus
         })
 
         

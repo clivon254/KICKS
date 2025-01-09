@@ -1,7 +1,7 @@
 
 
 import express from "express"
-import { createProduct, deleteProduct, getProduct, getProducts, updateProduct } from "../controller/productController.js"
+import { createProduct, deleteProduct, getProduct, getProducts, stats, updateProduct } from "../controller/productController.js"
 import { verifyToken } from "../utils/verify.js"
 
 
@@ -11,6 +11,9 @@ const productRouter = express.Router()
 
 productRouter.post("/create-product" , verifyToken, createProduct)
  
+
+productRouter.post("/stats" ,verifyToken, stats)
+
 
 productRouter.get("/get-product/:productId" , getProduct)
 

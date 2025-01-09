@@ -69,7 +69,7 @@ export default function FAQS() {
 
         {items.map((item ,index) => (
 
-          <div className="py-4 w-full border p-3 cursor-pointer rounded-xl bg-slate-100">
+          <div className="py-4 w-full border p-3 cursor-pointer rounded-xl bg-slate-100  transition-all ease-in duration-500 delay-200">
 
             {/* question */}
             <div 
