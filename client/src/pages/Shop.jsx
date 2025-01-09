@@ -5,6 +5,8 @@ import { StoreContext } from '../context/store'
 import ProductCard from '../components/ProductCard'
 import { FaSlidersH } from 'react-icons/fa'
 import { MdClose } from 'react-icons/md'
+import _ from "lodash"
+
 
 export default function Shop() {
 
@@ -96,19 +98,137 @@ export default function Shop() {
 
     }
 
+    
+    // ***  PAGINATION ***//
+
+    const [page ,setPage] = useState(1)
+
+    const [limit ,setLimit] = useState(8)
+
+    const [siblings ,setSiblings] = useState(1)
+
+
+    // getprofuscts
+    const getProducts = (page,limit) => {
+
+        let array = []
+
+        for(let i = (page -1) * limit ; i < (page * limit) && filteredProducts[i] ; i++)
+        {
+            array.push(filteredProducts[i])
+        }
+
+        return array;
+
+    }
+
+    const finalProducts = getProducts(page,limit)
+
+    const finalLength = filteredProducts?.length
+
+    const totalPage = Math.ceil(finalLength / limit)
+
+
+    // returnPaginationPage
+    const returnPaginationPage = (totalPage ,page ,limit,siblings) => {
+
+        let totalPageNoInArrray = 7 + siblings
+
+        if(totalPageNoInArrray >= totalPage)
+        {
+            return _.range(1 ,totalPage + 1)
+        }
+
+        let leftSiblingsIndex = Math.max(page - siblings , 1)
+
+        let rightSiblingsIndex = Math.min(page + siblings, totalPage)
+
+
+        let showLeftDots = leftSiblingsIndex > 2 ;
+
+        let showRightDots = rightSiblingsIndex < totalPage - 2
+
+        if(!showLeftDots && showRightDots)
+        {
+            let leftItemsCount = 3 + 2 * siblings ;
+
+            let leftRange = _.range(1 ,leftItemsCount + 1)
+
+            return [...leftRange ,"...", totalPage]
+        }
+        else if(showLeftDots && !showRightDots)
+        {
+            let rightItemsCount = 3 + 2 * siblings
+
+            let rightRange = _.range(totalPage - rightItemsCount + 1,totalPage +1)
+
+            return [1, "...", ...rightRange]
+        }
+        else
+        {
+            let middleRange = _.range(leftSiblingsIndex, rightSiblingsIndex + 1)
+
+            return[1,"...",...middleRange,"...",totalPage]
+        }
+
+    }
+
+    const array = returnPaginationPage(totalPage,page,limit,siblings)
+
+    // handlePageChange
+    const handlePageChange = (value) => {
+
+        if(value === "&laquo;")
+        {
+            setPage(1)
+        }
+        else if(value === "&lsquo;")
+        {
+            if(page !== 1)
+            {
+                setPage(page -1)
+            }
+        }
+        else if(value === "&raquo;" )
+        {
+            if(page !== totalPage)
+            {
+                setPage(page+1)
+            }
+        }
+        else if(value === "&rsquo;")
+        {
+            setPage(totalPage)
+        }
+        else
+        {
+            setPage(value)
+        }
+
+    }
+
+
     useEffect(() => {
+
+        window.scrollTo(0, 0);
 
         setFilteredProducts(products)
 
-    },[products])
+    },[products,page])
+
 
     useEffect(() => {
+
+        window.scrollTo(0, 0);
 
         applyFilter()
 
     },[category,brand])
 
+
     useEffect(() => {
+
+        window.scrollTo(0, 0);
 
         sortProduct()
 
@@ -244,28 +364,83 @@ export default function Shop() {
 
                     </div>
 
-                    {/* product map */}
-                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-y-6 gap-x-3">
+                    
+                    <div className="w-full">
 
-                        {filteredProducts.length > 0 ? (
+                        {/* product map */}
+                        <div className="">
 
-                            <>
+                            {finalProducts.length > 0 ? (
 
-                                {filteredProducts?.map((product,index) => (
+                                <>
 
-                                    <ProductCard key={index} product={product}/>
+                                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-y-6 gap-x-3">
 
-                                ))}
+                                        {finalProducts?.map((product,index) => (
 
-                        </>
+                                            <ProductCard key={index} product={product}/>
 
-                        ) 
-                        : 
-                        (
-                            <p className="text-xl font-semibold text-center">
-                                Sorry there are no products
-                            </p>
-                        )}
+                                        ))}
+
+                                    </div>
+
+                                </>
+
+                            ) 
+                            : 
+                            (
+                                <p className="text-xl font-semibold text-center">
+                                    Sorry there are no products
+                                </p>
+                            )}
+
+                        </div>
+
+                        {/* pagination */}
+                        <div className="w-full flex justify-center items-center">
+
+                            <ul className="flex py-4">
+
+                                <li className="border border-slate-500 flex items-center justify-center h-10 w-10 cursor-pointer hover:bg-slate-200 rounded-l-md">
+                                    <span onClick={() => handlePageChange("&laquo;")} className="">&laquo;</span>
+                                </li>
+
+                                <li className="border border-slate-500 flex items-center justify-center h-10 w-10 cursor-pointer hover:bg-slate-200">
+                                    <span onClick={() => handlePageChange("&lsquo;")} className="">&lsaquo;</span>
+                                </li>
+
+                                {array.map(value => {
+
+                                    if(value === page)
+                                    {
+                                        return (
+                                            <li className="border border-slate-500 flex items-center justify-center h-10 w-10 cursor-pointer bg-primary text-white">
+                                                <span onClick={() => handlePageChange(value)} className="">{value}</span>
+                                            </li>
+                                        )
+                                    }
+                                    else
+                                    {
+                                        return (
+                                            <li className="border border-slate-500 flex items-center justify-center h-10 w-10 cursor-pointer hover:bg-slate-200">
+                                                <span onClick={() => handlePageChange(value)} className="">{value}</span>
+                                            </li>
+                                        )
+                                    }
+
+                                })}
+                                
+                                <li className="border border-slate-500 flex items-center justify-center h-10 w-10 cursor-pointer hover:bg-slate-200">
+                                    <span onClick={() => handlePageChange("&raquo;")} className="">&rsaquo;</span>
+                                </li>
+
+                                <li className="border border-slate-500 flex items-center justify-center h-10 w-10 cursor-pointer hover:bg-slate-200 rounded-r-md">
+                                    <span onClick={() => handlePageChange("&rsquo;")} className="">&raquo;</span>
+                                </li>
+
+                            </ul>
+
+                        </div>
 
                     </div>
 
