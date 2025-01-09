@@ -95,6 +95,9 @@ export default function ConfirmPayment() {
 
     useEffect(() => {
 
+        window.scrollTo(0, 0);
+
+
         // front-end listen for Server-sent Events
         const eventSource = new EventSource(url + "/api/order/event")
 
