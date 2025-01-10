@@ -96,7 +96,7 @@ export const mpesa = async (req,res,next) => {
             "PartyA":`254${phone}`,    
             "PartyB":shortcode,    
             "PhoneNumber":`254${phone}`,    
-            "CallBackURL":`${Callback_url}/api/order/callback?orderId=${order._id}&userId=${userId}`,    
+            "CallBackURL":`https://kicks-server-6p0n.onrender.com/api/order/callback?orderId=${order._id}&userId=${userId}`,    
             "AccountReference":"KICKS",    
             "TransactionDesc":"Test"
         }
@@ -144,6 +144,9 @@ export const callback  = async (req,res,next) => {
 
     try
     {
+
+        console.log("Callback is working")
+
         const callbackData = req.body
             
         if(!callbackData.Body.stkCallback.CallbackMetadata)
@@ -214,8 +217,6 @@ export const callback  = async (req,res,next) => {
             
             res.status(200).json({success:true , pay})
         }
-
-       
 
     }
     catch(error)
