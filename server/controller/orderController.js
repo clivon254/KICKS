@@ -282,7 +282,6 @@ export const confirmPayment = async (req,res,next) => {
 
             if(order)
             {
-                console.log(order.items.length)
                 
                 for(const item of order.items)
                 {
