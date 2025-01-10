@@ -19,7 +19,6 @@ export default function Banner() {
 
     const [image, setImage] = useState(banners.length > 0 ? banners[0] : null);
 
-    console.log(image)
 
     // image
     const IMage = () => {
