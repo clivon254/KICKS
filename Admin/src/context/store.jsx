@@ -35,6 +35,8 @@ export default function StoreContextProvider (props){
 
     const [orderError ,setOrderError] = useState(false)
 
+    const [orderQuery ,setOrderQuery] = useState("Order Placed")
+
     const [coupons ,setCoupons] = useState([])
 
     const [couponLoading ,setCouponLoading] = useState(false)
@@ -142,7 +144,7 @@ export default function StoreContextProvider (props){
 
         try
         {
-            const res = await axios.get(url + "/api/order/get-adminOrders",{headers:{token}})
+            const res = await axios.get(url +  `/api/order/get-adminOrders?status=${orderQuery}`,{headers:{token}})
 
             if(res.data.success)
             {
@@ -349,6 +351,12 @@ export default function StoreContextProvider (props){
         fetchStats()
 
     },[numofDays])
+
+    useEffect(() => {
+
+        fetchOrders()
+
+    },[orderQuery])
     
     useEffect(() => {
 
@@ -489,6 +497,7 @@ export default function StoreContextProvider (props){
         orders,setOrders,
         orderLoading,setOrderLoading,
         orderError,setOrderError,
+        orderQuery,setOrderQuery,
         fetchOrders,
         coupons,setCoupons,
         couponLoading,setCouponLoading,

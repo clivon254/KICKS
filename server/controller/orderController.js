@@ -411,9 +411,13 @@ export const adminOrders = async (req,res,next) => {
         return next(errorHandler(403,"your are no allowed to see all the order"))
     }
 
+    const {status} = req.query
+
     try
     {
-        const orders = await Order.find({}).sort({_id:-1})
+        const orders = await Order.find({
+            ...(status && {status:status})
+        }).sort({_id:-1})
 
         res.status(200).json({success:true , orders})
     }

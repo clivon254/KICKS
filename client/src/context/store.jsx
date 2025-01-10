@@ -25,10 +25,6 @@ export default function StoreContextProvider (props){
         {
             title:"FAQS",
             path:"/faq"
-        },
-        {
-            title:"ABOUT US",
-            path:"/about"
         }
     ]
 

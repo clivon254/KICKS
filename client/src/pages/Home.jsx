@@ -15,6 +15,7 @@ import { MdChevronLeft, MdChevronRight } from "react-icons/md"
 import { StoreContext } from '../context/store';
 import OfferBanner from '../components/OfferBanner';
 import axios from "axios"
+import Banner from '../components/Banner';
 
 
 
@@ -113,6 +114,9 @@ export default function Home() {
 
    <section className="">
 
+    {/* Banner */}
+    <Banner/>
+    
     {/* new arrival */}
     <div className="section space-y-10">
 

@@ -9,11 +9,45 @@ import { HiExclamationCircle } from "react-icons/hi"
 
 export default function Orders() {
 
-  const {url,token,orders,setOrders,ordersLoading,ordersError,fetchOrders} = useContext(StoreContext)
+ 
+  const {url,token,orders,setOrders,ordersLoading,ordersError,fetchOrders,orderQuery,setOrderQuery} = useContext(StoreContext)
 
+  
   const [open ,setOpen] = useState(false)
 
+
   const [orderIdToDelete ,setOrderIdToDelete] = useState(null)
+
+
+  const orderPlaced = orders?.filter((order) => order.status === "Order Placed")
+
+  const processing = orders?.filter((order) => order.status === "Processing")
+
+  const  outforDelivery = orders?.filter((order) => order.status === "Out for Delivery")
+
+  const delivered = orders?.filter((order) => order.status === "Delivered")
+ 
+  const [orderData ,setOrderData] = useState([
+    {
+      title:"Order Placed",
+      value:orderPlaced?.length,
+    },
+    {
+      title:"Processing",
+      value:processing?.length,
+    },
+    {
+      title:"Out for delivery",
+      value:outforDelivery?.length,
+    },
+    {
+      title:"Delivered",
+      value:delivered?.length,
+    }
+  ])
+
+  console.log(processing)
+
 
   // status handler
   const statusHandler = async (event,orderId) => {
@@ -73,6 +107,23 @@ export default function Orders() {
         <section className="section space-y-10">
 
           <h1 className="title3 text-center">Orders</h1>
+
+          {/* orders status */}
+          <div className="w-full flex flex-wrap  gap-x-3 gap-y-1">
+
+            {orderData?.map((order,index) => (
+
+              <div 
+                  key={index} 
+                  onClick={() => setOrderQuery(order.title)}
+                  className={`border border-slate-500 px-3 py-1 shadow rounded-md cursor-pointer text-sm font-semibold ${orderQuery === order.title ? "bg-primary text-white" :"bg-black text-white"}`}
+              >
+                {order.title} {order.value}
+              </div>
+
+            ))}
+
+          </div>
 
           <div className="w-full">
 
