@@ -10,6 +10,7 @@ import { signOutSuccess } from '../redux/user/userSlice'
 import { toast } from 'sonner'
 import { Link, useNavigate } from 'react-router-dom'
 import SideBar from './SideBar'
+import Logo from '../../../client/src/components/Logo'
 
 export default function Header() {
 
@@ -42,7 +43,7 @@ export default function Header() {
 
     <>
 
-        <header className="p-2 shadow-sm">
+        <header className="p-2 shadow-sm w-full fixed top-0 z-50 backdrop-blur-xl">
 
             <div className="flex items-center justify-between">
 
@@ -62,18 +63,9 @@ export default function Header() {
                 {/* logo  */}
                 <div className="">
                     
-                    <div className="h-12 w-12 md:h-20 md:w-20 ">
+                    <Logo/>
 
-                        <img 
-                            src={LOGO} 
-                            alt="" 
-                            className="w-full h-full " 
-                        />
-
-                    </div>
-
-                </div>
-                
+                </div>     
 
                 {/* actions */}
                 <div className="flex items-center gap-x-3">

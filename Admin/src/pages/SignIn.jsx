@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { signInUserFailure, signInUserStart, signInUserSuccess, signOutSuccess } from '../redux/user/userSlice'
 import {toast} from "sonner"
 import {Alert} from "flowbite-react"
+import Logo from '../components/Logo'
 
 export default function SignIn() {
 
@@ -77,10 +78,14 @@ export default function SignIn() {
 
     <div className="section flex items-center justify-center min-h-screen">
 
-      <div className="w-full max-w-xl mx-auto">
+      <div className="w-full max-w-xl mx-auto space-y-5">
 
         {/* logo */}
-        <div className=""></div>
+        <div className="flex items-center justify-center">
+
+          <Logo/>
+
+        </div>
 
         {/* form */}
         <div className="space-y-10">

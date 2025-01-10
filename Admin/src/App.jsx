@@ -49,11 +49,11 @@ function App() {
 
       currentUser && currentUser?.isAdmin ?
 
-        <div className="w-full h-screen flex flex-col overflow-hidden ">
+        <div className="w-full h-screen flex flex-col">
 
           <Header/>
 
-          <div className="w-full h-full flex border-t  ">
+          <div className="w-full h-full flex border-t lg:pt-24 md:pt-20 pt-12">
 
             {/* sidebar */}
             <div className="hidden lg:flex w-1/5  overflow-y-scroll ">

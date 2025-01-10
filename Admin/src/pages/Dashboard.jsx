@@ -1,6 +1,6 @@
 
 
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useContext } from 'react'
 import { StoreContext } from '../context/store'
 import Loading from '../components/Loading'
@@ -46,8 +46,13 @@ export default function Dashboard() {
 
     setNumofDays(e.target.value)
 
-
   }
+
+  useEffect(() => {
+
+    fetchStats()
+
+  },[])
 
   return (
 
@@ -132,7 +137,7 @@ export default function Dashboard() {
 
       {statsError && (
 
-        <Error/>
+        <Error retry={fetchStats}/>
 
       )}
 
