@@ -31,7 +31,6 @@ export default function Home() {
   const [featureds ,setFeatureds] = useState([])
 
 
-
   // offer products
   const fetchOffers = async () => {
 
