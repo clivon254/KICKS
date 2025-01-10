@@ -113,16 +113,16 @@ export default function Home() {
     <Banner/>
 
     {/* new arrival */}
-    <div className="section space-y-10">
+    <div className="section space-y-10 my-10">
 
       {/* header */}
       <div className="">
         
         <div className="space-y-5 w-full">
 
-           <h2 className="text-4xl font-semibold font-title  text-center">New Arrival</h2>
+           <h2 className="text-4xl lg:text-5xl font-semibold font-title  text-center">New Arrival</h2>
 
-           <h4 className="text-xl font-normal font-title  text-center text-gray-600">
+           <h4 className="text-sm md:text-base lg:text-xl font-normal font-title  text-center text-gray-600">
             Explore our latest shoe collection-blending fashion and functionality
             for every step take
            </h4>
@@ -200,22 +200,21 @@ export default function Home() {
     <OfferBanner/>
 
     {/*products on offer*/}
-    <div className="section space-y-10 ">
+    <div className="section space-y-10 my-10">
 
       {/* header */}
       <div className="">
         
         <div className="space-y-5 w-full">
 
-           <h2 className="text-4xl font-semibold font-title  text-center">Get our Offers</h2>
+           <h2 className="text-4xl lg:text-5xl font-semibold font-title  text-center">Get our Offers</h2>
 
-           <h4 className="text-xl font-normal font-title  text-center text-gray-600">
+           <h4 className="text-sm md:text-base lg:text-xl font-normal font-title  text-center text-gray-600">
               Browse our top diverse collection and find the perfect pair that suits your personality.
            </h4>
 
         </div>
         
-
       </div>
 
       {/* swiper */}
@@ -284,14 +283,14 @@ export default function Home() {
     </div>
 
     {/* featured products */}
-    <div className="section space-y-5">
+    <div className="section space-y-5 mb-10">
 
       {/* header */}
       <div className="space-y-5 w-full">
         
-        <h2 className="text-4xl font-semibold font-title  text-center">Featured shoes</h2>
+        <h2 className=" text-4xl lg:text-5xl font-semibold font-title  text-center">Featured shoes</h2>
 
-        <h4 className="text-xl font-normal font-title  text-center text-gray-600">
+        <h4 className="text-sm md:text-base lg:text-xl font-normal font-title  text-center text-gray-600">
           View Our Most Selling 
         </h4>
 
