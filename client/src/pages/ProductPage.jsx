@@ -209,7 +209,7 @@ export default function ProductPage() {
                 <div className="w-full flex flex-col lg:flex-row gap-x-10 gap-y-14 ">
 
                     {/* left */}
-                    <div className="w-full lg:w-3/5 space-y-3" >  
+                    <div className="w-full lg:w-1/2 space-y-3" >  
 
                         {/* main */}
                         <div className="max-h-[60vh] min-h-[60vh] h-[60vh] w-full border border-zinc-400">
@@ -246,7 +246,7 @@ export default function ProductPage() {
                     </div>
 
                     {/* right */}
-                    <div className="w-full lg:w-2/5 space-y-5">
+                    <div className="w-full lg:w-1/2 space-y-5">
 
                         {/* name */}
                         <div className="">
@@ -399,9 +399,21 @@ export default function ProductPage() {
 
                             <button 
                                 className="btn2"
-                                disabled={product.instock < 1}
+                                disabled={cartLoading || product.instock < 1}
+                                onClick={() => {
+                                    addToCart() ;
+                                    navigate('/checkout')
+                                }}
                             >
-                                BUY NOW
+                                {cartLoading ? 
+                                    (
+                                        <div className="flex justify-center items-center">
+                                            <span className="loading"/>
+                                        </div>
+                                    ) 
+                                    : 
+                                    ("BUY NOW")
+                                }
                             </button>
 
                         </div>

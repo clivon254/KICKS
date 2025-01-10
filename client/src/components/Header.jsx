@@ -272,7 +272,7 @@ export default function Header() {
 
             {/* cart */}
             <div 
-              className="relative"
+              className="relative cursor-pointer"
               onClick={() => navigate('/cart')}
             >
 

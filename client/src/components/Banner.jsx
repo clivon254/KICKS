@@ -80,7 +80,7 @@ export default function Banner() {
             </div>
 
             {/* image */}
-            <div className="w-full md:w-1/2 flex items-center justify-center p-5 bg-red-100">
+            <div className="w-full md:w-1/2 flex items-center justify-center p-5 ">
 
                 <img 
                     src={Banner1}

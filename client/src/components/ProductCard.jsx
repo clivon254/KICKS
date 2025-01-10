@@ -7,9 +7,9 @@ export default function ProductCard({product}) {
   
   return (
 
-    <div>
+    <div className="space-y-2">
 
-        <div className="h-[250px] md:h-[280px] lg:h-[280px] md w-full">
+        <div className="h-[250px] md:h-[280px] lg:h-[280px] md w-full shadow shadow-slate-200">
 
             <Link to={`/product/${product?._id}`}>
 
