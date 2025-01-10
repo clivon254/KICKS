@@ -10,7 +10,8 @@ import { signOutSuccess } from '../redux/user/userSlice'
 import { toast } from 'sonner'
 import { Link, useNavigate } from 'react-router-dom'
 import SideBar from './SideBar'
-import Logo from '../../../client/src/components/Logo'
+import Logo from './Logo'
+
 
 export default function Header() {
 
@@ -64,7 +65,7 @@ export default function Header() {
                 <div className="">
                     
                     <Logo/>
-
+                    
                 </div>     
 
                 {/* actions */}
