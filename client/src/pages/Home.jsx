@@ -30,11 +30,6 @@ export default function Home() {
 
   const [featureds ,setFeatureds] = useState([])
 
-  console.log(offers)
-
-  console.log(featureds)
-
-  console.log(latests)
 
 
   // offer products
@@ -116,7 +111,7 @@ export default function Home() {
 
     {/* Banner */}
     <Banner/>
-    
+
     {/* new arrival */}
     <div className="section space-y-10">
 
