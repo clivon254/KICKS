@@ -7,7 +7,7 @@ export const StoreContext = createContext(null)
 
 export default function StoreContextProvider (props){
 
-    const url = "http://localhost:1500"
+    const url = "https://kicks-server-6p0n.onrender.com"
 
     const [token ,setToken] = useState(localStorage.getItem("token"))
 
