@@ -14,7 +14,7 @@ const orderSchema  = new mongoose.Schema(
 
         amount:{type:Number , required:true},
 
-        payment:{type:Boolean , default:"false"},
+        payment:{type:Boolean , default:false},
 
         paymentmethod:{type:String , required:true},
 
